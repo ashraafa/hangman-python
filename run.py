@@ -1,5 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
+import random
+import string
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -35,15 +37,31 @@ movies = [x for list in MOVIES for x in list]
 sports = [x for list in SPORTS for x in list]
 hard = [x for list in HARD for x in list]
 
-print(animals)
-print("/n")
-print(cars)
-print('/n')
-print(movies)
-print('/n')
-print(sports)
-print('/n')
-print(hard)
+def get_random_word(category):
+    """
+    Function to retrieve a random word based on the category 
+    selected by the player
+    """
+    game_word = random.choice(category)
+    return game_word
 
+def play_hangman():
+    """
+    Function to play game using the random word generated from 
+    get_random_word. 
+    """
+    game_word = get_random_word(animals)
+    display_word = "_" *len(game_word)
+    letters_guessed = []
+    words_guessed =[]
+    attempts = 0
+
+    print(f" Attempts: {attempts}\n")
+    print(f" Word to guess: {game_word}\n")
+    print(f" Words Guessed: {words_guessed}\n")
+    print(f" Letters Guessed: {letters_guessed}\n")
+    print(f" Your secret: "+" ".join(display_word) + "\n")
+
+play_hangman()
 
 
