@@ -45,23 +45,50 @@ def get_random_word(category):
     game_word = random.choice(category)
     return game_word
 
+
 game_word = get_random_word(animals)
-play_game = "Y"
+play_game = "N"
 player_guess = ""
 letters_guessed = []
 words_guessed = []
 
-def input_validation(player_guess):
+def welcome():
+    """
+    Welcome screen for user to enter name
+    """
+    player_name = "empty"
+
+    while player_name == 'empty':
+        player_name = input("Please enter a username with less than 10 alpha characters\n")
+        input_validation(player_name)
+        
+        if len(player_name) < 10 and player_name.isalpha():
+            f" Thank you for playing {player_name}"
+
+    return player_name
+    
+
+
+def input_validation(player_name):
     """
     Function to validate the input received from the user
     """
     try:
+        if not player_name.isalpha():
+            raise ValueError (
+                f" You can only enter letters. You entered {player_name}"
+            )
+        elif len(player_name) > 10:
+            raise ValueError (
+                f" You are only allowed 10 letters. You entered: {len(player_name)}"
+            )
+
         if len(player_guess) < len(game_word) and len(player_guess) > 1 and player_guess.isalpha():
             raise ValueError(
                 f" {player_guess} is shorter than the hidden word and not a single letter"
                 )
 
-        if len(player_guess) > len(game_word) and len(player_guess) > 1 and player_guess.isalpha():
+        elif len(player_guess) > len(game_word) and len(player_guess) > 1 and player_guess.isalpha():
             raise ValueError(
                 f" {player_guess} is longer than the hidden word and not a single letter"
                 )
@@ -144,8 +171,9 @@ def play_hangman():
             print(str("Incorrect letter"))
             print(letters_guessed)
 
-play_hangman()
-player_lost()
+welcome()
+#play_hangman()
+#player_lost()
 
 
             
