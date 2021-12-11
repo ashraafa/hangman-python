@@ -51,17 +51,36 @@ def play_hangman():
     get_random_word. 
     """
     game_word = get_random_word(animals)
-    display_word = "_" *len(game_word)
+    display_word = "_" * len(game_word)
     letters_guessed = []
-    words_guessed =[]
+    words_guessed = []
     attempts = 0
+    play_game = "Y"
 
+    
     print(f" Attempts: {attempts}\n")
     print(f" Word to guess: {game_word}\n")
     print(f" Words Guessed: {words_guessed}\n")
     print(f" Letters Guessed: {letters_guessed}\n")
     print(f" Your secret: "+" ".join(display_word) + "\n")
 
+
+    while play_game == "Y":
+        player_guess = input("Please guess a single letter or take a chance with the complete word\n")
+        
+        if len(player_guess) == len(game_word) and player_guess in game_word:
+                words_guessed.append(player_guess)
+                print("Congrats you chose the correct word")
+                print(words_guessed)
+            
+        elif len(player_guess) == 1:
+            for letter in player_guess:
+                letters_guessed.append(player_guess)
+                if letter in game_word:
+                    index = [i for i, l in enumerate(game_word) if l == player_guess]
+                    for i in index:
+                        display_word = display_word[:i] + player_guess + display_word[i+1:]
+        print("Congrats you chose a correct letter")
+        print(f" Word: "+" ".join(display_word) + "\n")
+
 play_hangman()
-
-
