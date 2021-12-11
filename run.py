@@ -79,6 +79,13 @@ def input_validation(player_guess):
     except ValueError as e:
             print({e})
 
+def player_won():
+    print("Congrats you won")
+    print(" Would you like to continue: Y/N\n")
+
+def player_lost():
+    print("Sorry you lost")
+    print(" Would you like to continue: Y/N\n")
 
 def play_hangman():
     """
@@ -96,9 +103,8 @@ def play_hangman():
     print(f" Your secret: "+" ".join(display_word) + "\n")
 
 
-    while play_game == "Y":
+    while play_game == "Y" and attempts < 2:
         player_guess = input("Please guess a single letter or take a chance with the complete word\n")
-
         input_validation(player_guess)
         
         if len(player_guess) == len(game_word) and player_guess != game_word and player_guess.isalpha() and player_guess in words_guessed:
@@ -113,11 +119,10 @@ def play_hangman():
             
             
         elif len(player_guess) == len(game_word) and player_guess == game_word:
-                words_guessed.append(player_guess)
-                print("Congrats you chose the correct word")
-                print(words_guessed)
+            print("Congrats you won_letter!")
+            player_won()
          
-        elif len(player_guess) == 1 and player_guess.isalpha():
+        elif len(player_guess) == 1 and player_guess.isalpha() and player_guess not in letters_guessed:
             for letter in player_guess:
                 letters_guessed.append(player_guess)
                 if letter in game_word:
@@ -126,18 +131,21 @@ def play_hangman():
                         display_word = display_word[:i] + player_guess + display_word[i+1:]
                     print("Congrats you chose a correct letter")
                     print(f" Word: "+" ".join(display_word) + "\n")
-                elif letter not in game_word or letters_guessed:
+                    if "_" not in display_word:
+                        print("Congrats you won_letter!")
+                        player_won()
+            else:
+                if letter not in game_word:
                     attempts += 1
                     print("Letter not in word")
                     print(attempts)
-                    print(f" Guessed Letters: {letters_guessed}\n")
-
-
+                    print(f" Guessed Letters: {letters_guessed}\n")             
         else:
             print(str("Incorrect letter"))
             print(letters_guessed)
 
 play_hangman()
+player_lost()
 
 
             
