@@ -45,17 +45,48 @@ def get_random_word(category):
     game_word = random.choice(category)
     return game_word
 
+game_word = get_random_word(animals)
+play_game = "Y"
+player_guess = ""
+letters_guessed = []
+words_guessed = []
+
+def input_validation(player_guess):
+    """
+    Function to validate the input received from the user
+    """
+    try:
+        if len(player_guess) < len(game_word) and len(player_guess) > 1 and player_guess.isalpha():
+            raise ValueError(
+                f" {player_guess} is shorter than the hidden word and not a single letter"
+                )
+
+        if len(player_guess) > len(game_word) and len(player_guess) > 1 and player_guess.isalpha():
+            raise ValueError(
+                f" {player_guess} is longer than the hidden word and not a single letter"
+                )
+
+        elif not player_guess.isalpha() or player_guess == 1:
+            raise ValueError(
+                f" You can only enter letters. You entered {player_guess}"
+                )
+        
+        elif player_guess in letters_guessed or words_guessed:
+            raise ValueError(
+                f" You already guessed {player_guess}"
+            )
+
+    except ValueError as e:
+            print({e})
+
+
 def play_hangman():
     """
     Function to play game using the random word generated from 
     get_random_word. 
     """
-    game_word = get_random_word(animals)
-    display_word = "_" * len(game_word)
-    letters_guessed = []
-    words_guessed = []
     attempts = 0
-    play_game = "Y"
+    display_word = "_" * len(game_word)
 
     
     print(f" Attempts: {attempts}\n")
@@ -67,20 +98,46 @@ def play_hangman():
 
     while play_game == "Y":
         player_guess = input("Please guess a single letter or take a chance with the complete word\n")
+
+        input_validation(player_guess)
         
-        if len(player_guess) == len(game_word) and player_guess in game_word:
+        if len(player_guess) == len(game_word) and player_guess != game_word and player_guess.isalpha() and player_guess in words_guessed:
+            words_guessed.append(player_guess)
+            print(f" {player_guess} is not the hidden word")
+        
+        elif len(player_guess) == len(game_word) and player_guess != game_word and player_guess.isalpha() and player_guess not in words_guessed:
+            words_guessed.append(player_guess)
+            attempts += 1
+            print(f" Words Guessed: {words_guessed}")
+            print(f" Your attempts: {attempts}\n")
+            
+            
+        elif len(player_guess) == len(game_word) and player_guess == game_word:
                 words_guessed.append(player_guess)
                 print("Congrats you chose the correct word")
                 print(words_guessed)
-            
-        elif len(player_guess) == 1:
+         
+        elif len(player_guess) == 1 and player_guess.isalpha():
             for letter in player_guess:
                 letters_guessed.append(player_guess)
                 if letter in game_word:
                     index = [i for i, l in enumerate(game_word) if l == player_guess]
                     for i in index:
                         display_word = display_word[:i] + player_guess + display_word[i+1:]
-        print("Congrats you chose a correct letter")
-        print(f" Word: "+" ".join(display_word) + "\n")
+                    print("Congrats you chose a correct letter")
+                    print(f" Word: "+" ".join(display_word) + "\n")
+                elif letter not in game_word or letters_guessed:
+                    attempts += 1
+                    print("Letter not in word")
+                    print(attempts)
+                    print(f" Guessed Letters: {letters_guessed}\n")
+
+
+        else:
+            print(str("Incorrect letter"))
+            print(letters_guessed)
 
 play_hangman()
+
+
+            
