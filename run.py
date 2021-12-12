@@ -56,20 +56,22 @@ def welcome():
     """
     Welcome screen for user to enter name
     """
-    player_name = "empty"
+    player_name = ""
 
-    while player_name == 'empty':
+    while True:
         player_name = input("Please enter a username with less than 10 alpha characters\n")
-        input_validation(player_name)
+        user_validation(player_name)
         
-        if len(player_name) < 10 and player_name.isalpha():
-            f" Thank you for playing {player_name}"
+        if player_name.isalpha() and len(player_name) < 10:
+            print(f" Thank you for playing {player_name}")
+            play_hangman()
+        
+    else:
+        print(f" Please enter a valid name")
 
-    return player_name
+    print(player_name)
     
-
-
-def input_validation(player_name):
+def user_validation(player_name):
     """
     Function to validate the input received from the user
     """
@@ -83,6 +85,14 @@ def input_validation(player_name):
                 f" You are only allowed 10 letters. You entered: {len(player_name)}"
             )
 
+    except ValueError as e:
+            print({e})
+
+def input_validation(player_guess):
+    """
+    Function to validate the input received from the user
+    """
+    try:
         if len(player_guess) < len(game_word) and len(player_guess) > 1 and player_guess.isalpha():
             raise ValueError(
                 f" {player_guess} is shorter than the hidden word and not a single letter"
@@ -95,7 +105,7 @@ def input_validation(player_name):
 
         elif not player_guess.isalpha() or player_guess == 1:
             raise ValueError(
-                f" You can only enter letters. You entered {player_guess}"
+                f" You can only enter lettersW. You entered {player_guess}"
                 )
         
         elif player_guess in letters_guessed or words_guessed:
