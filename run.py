@@ -63,7 +63,33 @@ def welcome():
     """
     Welcome screen for user to enter name
     """
+    print(
+        """
+          _   _      _      _   _     ____    __  __      _      _   _     
+         |'| |'| U  /"\  u | \ |"| U /"___|uU|' \/ '|uU  /"\  u | \ |"|    
+        /| |_| |\ \/ _ \/ <|  \| |>\| |  _ /\| |\/| |/ \/ _ \/ <|  \| |>   
+        U|  _  |u / ___ \ U| |\  |u | |_| |  | |  | |  / ___ \ U| |\  |u   
+         |_| |_| /_/   \_\ |_| \_|   \____|  |_|  |_| /_/   \_\ |_| \_|    
+         //   \\  \\    >> ||   \\,-._)(|_  <<,-,,-.   \\    >> ||   \\,-. 
+        (_") ("_)(__)  (__)(_")  (_/(__)__)  (./  \.) (__)  (__)(_")  (_/ 
 
+        """
+    )
+    print(
+        """
+        Welcome to Hangman where the rules are simple\n
+        1. You enter your username and then select a category.
+        2. The computer randomly generates a word from the category selected.
+        3. You have 7 attempts to quess the correct word using either a single 
+           letter or the complete word.
+        4. The secret word has "_" as a placeholder to represent the number of 
+           words.
+        5. Attempts increase if guess an incorrect letter or incorrect word.
+        6. The computer will not penalize if you enter a letter or word that has
+           been previously used.
+        """
+    )
+    
     while True:
         player_name = input("Please enter a username with less than 10 alpha characters\n")
         user_validation(player_name)
@@ -73,9 +99,7 @@ def welcome():
         else:
             clear_terminal()
             player_options(player_name)
-            print(f"Player: {player_name}")
-
-    return player_name
+            return player_name
 
 def player_options(player_name):
     """Function to present player with options
@@ -84,60 +108,76 @@ def player_options(player_name):
     print("Enter 1 to Play Game")
     print("Enter 2 to View Leaderboard\n")
 
-    user_choice = input("Enter your selection below\n")
+    input_choice = False
 
-    if user_choice == "1":
-        game_category()
-        print(f"User choice: {user_choice}")
-        clear_terminal()
-    elif user_choice == "2":
-        get_leaderboard()
-        clear_terminal()
-    else:
-        raise ValueError(
-            f" You can only select the numbers 1 & 2 on your keyboard"
-        )
+    while not input_choice:
+        user_choice = input("Enter your selection below\n")
 
+        if user_choice == "1":
+            input_choice = True
+            clear_terminal()
+            game_category(player_name)
+        elif user_choice == "2":
+            input_choice = True
+            clear_terminal()
+            get_leaderboard()
+        else:
+            print(f"You entered {user_choice}. Only numbers 1 or 2 is allowed\n")
     return user_choice
+    
 
-def game_category():
+
+def game_category(player_name):
     """
     Function to present player with player game category options
     """
+    print(f"{player_name}, please select 1 of 5 options below. If you're feeling lucky, choose the Hard option\n")
     print("Enter 1 for Animals")
     print("Enter 2 for Cars")
     print("Enter 3 for Movies")
     print("Enter 4 for Sports")
-    print("Enter 5 for Hard")
+    print("Enter 5 for Hard\n")
 
-    category_choice = input("Enter your selection below\n")
+    input_category = False
 
-    if category_choice == "1":
-        category = animals
-        play_game = "Y"
-        play_hangman(play_game, category)
-    elif category_choice == "2":
-        category = cars
-        play_game = "Y"
-        play_hangman(play_game, category)
-    elif category_choice == "3":
-        category = movies
-        play_game = "Y"
-        play_hangman(play_game, category)
-    elif category_choice == "4":
-        category = sports
-        play_game = "Y"
-        play_hangman(play_game, category)
-    elif category_choice == "5":
-        category = hard
-        play_game = "Y"
-        play_hangman(play_game, category)
-    else:
-        raise ValueError(
-            f"You can only enter a single number from 1 to 5"
-        )
+    while not input_category:
+        category_choice = input("Enter your category selection below\n")
         
+        if category_choice == "1":
+            category = animals
+            input_category = True
+            play_game = "Y"
+            clear_terminal()
+            play_hangman(player_name, play_game, category)
+        elif category_choice == "2":
+            category = cars
+            input_category = True
+            play_game = "Y"
+            clear_terminal()
+            play_hangman(player_name, play_game, category)
+        elif category_choice == "3":
+            category = movies
+            input_category = True
+            play_game = "Y"
+            clear_terminal()
+            play_hangman(player_name, play_game, category)
+        elif category_choice == "4":
+            category = sports
+            input_category = True
+            play_game = "Y"
+            clear_terminal()
+            play_hangman(player_name, play_game, category)
+        elif category_choice == "5":
+            category = hard
+            input_category = True
+            play_game = "Y"
+            clear_terminal()
+            play_hangman(player_name, play_game, category)
+        else:
+            print(f"You entered {category_choice}. Only numbers 1 to 5 is allowed\n")
+ 
     return category
+   
 
     
 def user_validation(player_name):
@@ -193,7 +233,7 @@ def player_lost():
     print("Sorry you lost")
     print(" Would you like to continue: Y/N\n")
 
-def play_hangman(play_game, category):
+def play_hangman(player_name, play_game, category):
     """
     Function to play game using the random word generated from 
     get_random_word. 
