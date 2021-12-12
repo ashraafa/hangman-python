@@ -47,7 +47,7 @@ def get_random_word(category):
 
 
 game_word = get_random_word(animals)
-play_game = "N"
+#play_game = ""
 player_guess = ""
 letters_guessed = []
 words_guessed = []
@@ -63,13 +63,34 @@ def welcome():
         user_validation(player_name)
         
         if player_name.isalpha() and len(player_name) < 10:
-            print(f" Thank you for playing {player_name}")
-            play_hangman()
+            print(f"Thank you for playing {player_name}")
+            player_options()
         
     else:
         print(f" Please enter a valid name")
 
     print(player_name)
+
+def player_options():
+    """Function to present player with options
+    """
+    
+    print("Enter 1 to Play Game")
+    print("Enter 2 to View Leaderboard")
+
+    user_choice = input("Enter your selection below\n")
+
+    if user_choice == "1":
+        play_game = "Y"
+        play_hangman(play_game)
+        print(user_choice)
+        print(play_game)
+    elif user_choice == "2":
+        get_leaderboard()
+    else:
+        raise ValueError(
+            f" You can only select the numbers 1 & 2 on your keyboard"
+        )
     
 def user_validation(player_name):
     """
@@ -124,7 +145,7 @@ def player_lost():
     print("Sorry you lost")
     print(" Would you like to continue: Y/N\n")
 
-def play_hangman():
+def play_hangman(play_game):
     """
     Function to play game using the random word generated from 
     get_random_word. 
@@ -182,6 +203,7 @@ def play_hangman():
             print(letters_guessed)
 
 welcome()
+player_options()
 #play_hangman()
 #player_lost()
 
