@@ -1,7 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import random
-import string
+import os
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -46,6 +46,12 @@ def get_random_word(category):
     return game_word
 
 
+def clear_terminal():
+    """
+    Function to clear terminal
+    """
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 #game_word = get_random_word(category)
 play_game = ""
 player_guess = ""
@@ -57,34 +63,36 @@ def welcome():
     """
     Welcome screen for user to enter name
     """
-    #player_name = ""
 
     while True:
         player_name = input("Please enter a username with less than 10 alpha characters\n")
-        #user_validation(player_name)
+        user_validation(player_name)
         
-        if not player_name.isalpha() and len(player_name) > 10:
-            user_validation(player_name)
-        
+        if not player_name.isalpha() and len(player_name) < 10:
+            player_name = ""
         else:
-            player_options()
+            clear_terminal()
+            player_options(player_name)
+            print(f"Player: {player_name}")
 
-        return player_name
+    return player_name
 
-def player_options():
+def player_options(player_name):
     """Function to present player with options
     """
-    
+    print(f"Welcome {player_name}\n")
     print("Enter 1 to Play Game")
-    print("Enter 2 to View Leaderboard")
+    print("Enter 2 to View Leaderboard\n")
 
     user_choice = input("Enter your selection below\n")
 
     if user_choice == "1":
         game_category()
         print(f"User choice: {user_choice}")
+        clear_terminal()
     elif user_choice == "2":
         get_leaderboard()
+        clear_terminal()
     else:
         raise ValueError(
             f" You can only select the numbers 1 & 2 on your keyboard"
