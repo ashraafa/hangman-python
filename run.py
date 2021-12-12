@@ -51,25 +51,25 @@ play_game = ""
 player_guess = ""
 letters_guessed = []
 words_guessed = []
+player_name = ""
 
 def welcome():
     """
     Welcome screen for user to enter name
     """
-    player_name = ""
+    #player_name = ""
 
     while True:
         player_name = input("Please enter a username with less than 10 alpha characters\n")
-        user_validation(player_name)
+        #user_validation(player_name)
         
-        if player_name.isalpha() and len(player_name) < 10:
-            print(f"Thank you for playing {player_name}")
+        if not player_name.isalpha() and len(player_name) > 10:
+            user_validation(player_name)
+        
+        else:
             player_options()
-        
-    else:
-        print(f" Please enter a valid name")
 
-    print(player_name)
+        return player_name
 
 def player_options():
     """Function to present player with options
@@ -82,13 +82,15 @@ def player_options():
 
     if user_choice == "1":
         game_category()
-        print(user_choice)
+        print(f"User choice: {user_choice}")
     elif user_choice == "2":
         get_leaderboard()
     else:
         raise ValueError(
             f" You can only select the numbers 1 & 2 on your keyboard"
         )
+
+    return user_choice
 
 def game_category():
     """
@@ -126,6 +128,8 @@ def game_category():
         raise ValueError(
             f"You can only enter a single number from 1 to 5"
         )
+        
+    return category
 
     
 def user_validation(player_name):
@@ -162,7 +166,7 @@ def input_validation(player_guess, game_word):
 
         elif not player_guess.isalpha() or player_guess == 1:
             raise ValueError(
-                f" You can only enter lettersW. You entered {player_guess}"
+                f" You can only enter letters. You entered {player_guess}"
                 )
         
         elif player_guess in letters_guessed or words_guessed:
@@ -213,9 +217,11 @@ def play_hangman(play_game, category):
             
             
         elif len(player_guess) == len(game_word) and player_guess == game_word:
-            print("Congrats you won_letter!")
-            player_won()
-         
+            print("Congrats you won Word!")
+            print(f"Player: {player_name}")
+            play_game = "N"
+            end_game(play_game)
+        
         elif len(player_guess) == 1 and player_guess.isalpha() and player_guess not in letters_guessed:
             for letter in player_guess:
                 letters_guessed.append(player_guess)
@@ -238,8 +244,25 @@ def play_hangman(play_game, category):
             print(str("Incorrect letter"))
             print(letters_guessed)
 
+def end_game(play_game):
+    """
+    Function to disaply end of game screen
+    """
+
+    if play_game == "N":
+            print(" Thank you for playing!")
+    else:
+        print("Would you like to continue")
+
+
 welcome()
-player_options()
+#player_options()
+#end_game(play_game)
+#player_options()
+#game_category()
+#play_hangman(play_game, category)
+#player_options()
+
 #play_hangman()
 #player_lost()
 
