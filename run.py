@@ -46,8 +46,8 @@ def get_random_word(category):
     return game_word
 
 
-game_word = get_random_word(animals)
-#play_game = ""
+#game_word = get_random_word(category)
+play_game = ""
 player_guess = ""
 letters_guessed = []
 words_guessed = []
@@ -81,16 +81,52 @@ def player_options():
     user_choice = input("Enter your selection below\n")
 
     if user_choice == "1":
-        play_game = "Y"
-        play_hangman(play_game)
+        game_category()
         print(user_choice)
-        print(play_game)
     elif user_choice == "2":
         get_leaderboard()
     else:
         raise ValueError(
             f" You can only select the numbers 1 & 2 on your keyboard"
         )
+
+def game_category():
+    """
+    Function to present player with player game category options
+    """
+    print("Enter 1 for Animals")
+    print("Enter 2 for Cars")
+    print("Enter 3 for Movies")
+    print("Enter 4 for Sports")
+    print("Enter 5 for Hard")
+
+    category_choice = input("Enter your selection below\n")
+
+    if category_choice == "1":
+        category = animals
+        play_game = "Y"
+        play_hangman(play_game, category)
+    elif category_choice == "2":
+        category = cars
+        play_game = "Y"
+        play_hangman(play_game, category)
+    elif category_choice == "3":
+        category = movies
+        play_game = "Y"
+        play_hangman(play_game, category)
+    elif category_choice == "4":
+        category = sports
+        play_game = "Y"
+        play_hangman(play_game, category)
+    elif category_choice == "5":
+        category = hard
+        play_game = "Y"
+        play_hangman(play_game, category)
+    else:
+        raise ValueError(
+            f"You can only enter a single number from 1 to 5"
+        )
+
     
 def user_validation(player_name):
     """
@@ -109,7 +145,7 @@ def user_validation(player_name):
     except ValueError as e:
             print({e})
 
-def input_validation(player_guess):
+def input_validation(player_guess, game_word):
     """
     Function to validate the input received from the user
     """
@@ -145,12 +181,13 @@ def player_lost():
     print("Sorry you lost")
     print(" Would you like to continue: Y/N\n")
 
-def play_hangman(play_game):
+def play_hangman(play_game, category):
     """
     Function to play game using the random word generated from 
     get_random_word. 
     """
     attempts = 0
+    game_word = get_random_word(category)
     display_word = "_" * len(game_word)
 
     
@@ -160,10 +197,9 @@ def play_hangman(play_game):
     print(f" Letters Guessed: {letters_guessed}\n")
     print(f" Your secret: "+" ".join(display_word) + "\n")
 
-
     while play_game == "Y" and attempts < 2:
         player_guess = input("Please guess a single letter or take a chance with the complete word\n")
-        input_validation(player_guess)
+        input_validation(player_guess, game_word)
         
         if len(player_guess) == len(game_word) and player_guess != game_word and player_guess.isalpha() and player_guess in words_guessed:
             words_guessed.append(player_guess)
