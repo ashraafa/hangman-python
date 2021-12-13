@@ -1,7 +1,8 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import random
-import os
+import validate
+import helpers
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -25,7 +26,6 @@ CARS = SHEET.worksheet('cars').get_all_values()
 MOVIES = SHEET.worksheet('movies').get_all_values()
 SPORTS = SHEET.worksheet('sports').get_all_values()
 HARD = SHEET.worksheet('hard').get_all_values()
-LEADERBOARD = SHEET.worksheet('leaderboard').get_all_values()
 
 """
 Variables to declare a new list from the default nested list
@@ -45,25 +45,6 @@ def get_random_word(category):
     game_word = random.choice(category).upper()
     return game_word
 
-
-def clear_terminal():
-    """
-    Function to clear terminal
-    """
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-
-class colors:
-    RESET = '\33[0m'
-    UNDERLINE = '\033[04m'
-    RED = '\033[31m'
-    BLUE = '\033[34m'
-    LIGHTBLUE = '\033[94m'
-    GREEN ='\033[32m'
-    LIGHTGREEN ='\033[92m'
-
-
-
 play_game = ""
 player_guess = ""
 letters_guessed = []
@@ -74,7 +55,7 @@ def welcome():
     Function to display a welcome screen with the game rules
     """
     print(
-        colors.BLUE + 
+        helpers.colors.BLUE + 
     """
      _   _      _      _   _     ____    __  __      _      _   _     
     |'| |'| U  /"\  u | \ |"| U /"___|uU|' \/ '|uU  /"\  u | \ |"|    
@@ -87,7 +68,7 @@ def welcome():
     """
     )
     print(
-        colors.RED + "HANGMAN RULES" + colors.RESET +
+        helpers.colors.RED + "HANGMAN RULES" + helpers.colors.RESET +
     """
     1. The computer randomly generates a word from the category selected. 
     2. You have 6 attempts to quess the correct word using either a single 
@@ -99,8 +80,8 @@ def welcome():
     """
     )
 
-    input(colors.GREEN + "Press any key to continue..." + colors.RESET)
-    clear_terminal()
+    input(helpers.colors.GREEN + "Press any key to continue..." + helpers.colors.RESET)
+    helpers.clear_terminal()
     get_user()
     
 
@@ -110,13 +91,13 @@ def get_user():
     """
 
     while True:
-        player_name = input(colors.GREEN + "Please enter a username with less than 10 characters from the alphabet only.\n" + colors.RESET).upper()
-        user_validation(player_name)
+        player_name = input(helpers.colors.GREEN + "Please enter a username with less than 10 characters from the alphabet only.\n" + helpers.colors.RESET).upper()
+        validate.user_validation(player_name)
         
         if not player_name.isalpha() or len(player_name) > 10:
             player_name = ""
         else:
-            clear_terminal()
+            helpers.clear_terminal()
             game_category(player_name)
             return player_name
 
@@ -140,87 +121,37 @@ def game_category(player_name):
             category = animals
             input_category = True
             play_game = "Y"
-            clear_terminal()
+            helpers.clear_terminal()
             play_hangman(player_name, play_game, category)
         elif category_choice == "2":
             category = cars
             input_category = True
             play_game = "Y"
-            clear_terminal()
+            helpers.clear_terminal()
             play_hangman(player_name, play_game, category)
         elif category_choice == "3":
             category = movies
             input_category = True
             play_game = "Y"
-            clear_terminal()
+            helpers.clear_terminal()
             play_hangman(player_name, play_game, category)
         elif category_choice == "4":
             category = sports
             input_category = True
             play_game = "Y"
-            clear_terminal()
+            helpers.clear_terminal()
             play_hangman(player_name, play_game, category)
         elif category_choice == "5":
             category = hard
             input_category = True
             play_game = "Y"
-            clear_terminal()
+            helpers.clear_terminal()
             play_hangman(player_name, play_game, category)
         else:
             print(f"You entered {category_choice}. Only numbers 1 to 5 is allowed\n")
  
     return category
-    
-def user_validation(player_name):
-    """
-    Function to validate the input received from the user
-    """
-    try:
-        if not player_name.isalpha():
-            raise ValueError(
-                f" You can only enter letters. You entered {player_name}"
-            )
 
-        elif len(player_name) > 10:
-            raise ValueError(
-                f" You are only allowed 10 letters. You entered: {len(player_name)}"
-            )
-
-    except ValueError as e:
-        print(f" {colors.RED}{e}{colors.RESET}") 
-
-def input_validation(player_guess, game_word):
-    """
-    Function to validate the input received from the user
-    """
-    try:
-        if len(player_guess) < len(game_word) and len(player_guess) > 1 and player_guess.isalpha():
-            raise ValueError(
-                f" {player_guess} is shorter than the hidden word and not a single letter"
-            )
-
-        elif len(player_guess) > len(game_word) and len(player_guess) > 1 and player_guess.isalpha():
-            raise ValueError(
-                f" {player_guess} is longer than the hidden word and not a single letter"
-            )
-
-        elif not player_guess.isalpha() or player_guess == 1:
-            raise ValueError(
-                f" You can only enter letters. You entered {player_guess}"
-            )
-        
-        elif player_guess in letters_guessed:
-            raise ValueError(
-                f" You already guessed {player_guess}"
-            )
-        
-        elif player_guess in words_guessed:
-            raise ValueError(
-                f" You already guessed {player_guess}"
-            )
-
-    except ValueError as e:
-            print(f"{e}\n")
 
 def player_won(player_name, game_word):
     print(
@@ -245,12 +176,12 @@ def player_won(player_name, game_word):
 
         if continue_choice == "Y":
             continue_choice = True
-            clear_terminal()
+            helpers.clear_terminal()
             game_category(player_name)
         elif continue_choice == "N":
             input_choice = True
 
-            clear_terminal()
+            helpers.clear_terminal()
             welcome()
         else:
             print(f"You entered {continue_choice}. Only letters Y or N is allowed\n")
@@ -281,11 +212,11 @@ def player_lost(player_name, game_word):
 
         if continue_choice == "Y":
             continue_choice = True
-            clear_terminal()
+            helpers.clear_terminal()
             game_category(player_name)
         elif continue_choice == "N":
             input_choice = True
-            clear_terminal()
+            helpers.clear_terminal()
             welcome()
         else:
             print(f"You entered {continue_choice}. Only letters Y or N is allowed\n")
@@ -306,8 +237,8 @@ def play_hangman(player_name, play_game, category):
 
     while play_game == "Y" and attempts <= 5:
         player_guess = input("Please guess a single letter or take a chance trying the complete word\n").upper()
-        clear_terminal()
-        input_validation(player_guess, game_word)
+        helpers.clear_terminal()
+        validate.input_validation(player_guess, game_word,letters_guessed, words_guessed)
      
         if len(player_guess) == len(game_word) and player_guess != game_word and player_guess.isalpha() and player_guess not in words_guessed:
             words_guessed.append(player_guess)
@@ -343,7 +274,7 @@ def play_hangman(player_name, play_game, category):
     else:
         letters_guessed.clear()
         words_guessed.clear()
-        clear_terminal()
+        helpers.clear_terminal()
         player_lost(player_name, game_word)
 
 def end_game(play_game):
