@@ -52,12 +52,10 @@ def clear_terminal():
     """
     os.system('cls' if os.name == 'nt' else 'clear')
 
-#game_word = get_random_word(category)
 play_game = ""
 player_guess = ""
 letters_guessed = []
 words_guessed = []
-player_name = ""
 
 def welcome():
     """
@@ -78,32 +76,31 @@ def welcome():
     print(
     """
                          HANGMAN RULES
-    1. You enter your username and then select a category.
-    2. The computer randomly generates a word from the category selected.
-    3. You have 6 attempts to quess the correct word using either a single 
+    1. The computer randomly generates a word from the category selected.
+    2. You have 6 attempts to quess the correct word using either a single 
        letter or the complete word.
-    4. The secret word has "_" as a placeholder to represent thes number of 
+    3. The secret word has "_" as a placeholder to represent thes number of 
        letters.
-    5. Attempts increase if you guess an incorrect letter or incorrect word.
-    6. The computer will not penalize if you enter a letter or word that has
+    4. The computer will not penalize if you enter a letter or word that has
        been previously used.
     """
     )
     
     while True:
-        player_name = input("Please enter a username with less than 10 alpha characters\n").upper()
+        player_name = input("Please enter a username with less than 10 characters from the alphabet only...\n").upper()
         user_validation(player_name)
         
         if not player_name.isalpha() and len(player_name) < 10:
             player_name = ""
         else:
             clear_terminal()
-            player_options(player_name)
+            game_category(player_name)
             return player_name
-
+"""
 def player_options(player_name):
-    """Function to present player with options
-    """
+
+    Function to present player with options
+    
     print(f"Welcome {player_name}\n")
     print("Enter 1 to Play Game")
     print("Enter 2 to View Leaderboard\n")
@@ -124,7 +121,7 @@ def player_options(player_name):
         else:
             print(f"You entered {user_choice}. Only numbers 1 or 2 is allowed\n")
     return user_choice
-    
+"""  
 
 
 def game_category(player_name):
@@ -177,8 +174,6 @@ def game_category(player_name):
             print(f"You entered {category_choice}. Only numbers 1 to 5 is allowed\n")
  
     return category
-   
-
     
 def user_validation(player_name):
     """
@@ -195,7 +190,7 @@ def user_validation(player_name):
             )
 
     except ValueError as e:
-            print({e})
+        print(f"{e}\n")
 
 def input_validation(player_guess, game_word):
     """
@@ -228,7 +223,7 @@ def input_validation(player_guess, game_word):
             )
 
     except ValueError as e:
-            print({e})
+            print(f"{e}\n")
 
 def player_won(player_name, game_word):
     print(
