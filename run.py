@@ -245,6 +245,7 @@ def play_hangman(player_name, play_game, category):
     
     #print(f" Attempts: {attempts}\n")
     print(f" Word to guess: {game_word}\n")
+    print(display_hangman(attempts))
     #print(f" Words Guessed: {words_guessed}\n")
     #print(f" Letters Guessed: {letters_guessed}\n")
     #print(f" Your secret: "+" ".join(display_word) + "\n")
@@ -292,6 +293,7 @@ def play_hangman(player_name, play_game, category):
                     print(f" Guessed Letters: {letters_guessed}\n")
                     
         print("\n")
+        print(display_hangman(attempts))
         print(f" Your secret: "+" ".join(display_word) + "\n")
         print(f" Words Guessed: {words_guessed}\n")
         print(f" Letters Guessed: {letters_guessed}\n")       
@@ -305,6 +307,79 @@ def end_game(play_game):
             print(" Thank you for playing!")
     else:
         print("Would you like to continue")
+
+def display_hangman(attempts):
+    """
+    Function to display hangman picture in ascending order
+    """
+    hangman_pic = [
+        """
+        --------
+        |      |
+        |
+        |
+        |
+        |
+        -
+        """,
+        """
+        --------
+        |      |
+        |      O
+        |
+        |
+        |
+        -
+        """,
+        """
+        --------
+        |      |
+        |      O
+        |      |
+        |      |
+        |
+        -
+        """,
+        """
+        --------
+        |      |
+        |      O
+        |     \\|
+        |      |
+        |
+        -
+        """,
+        """
+        --------
+        |      |
+        |      O
+        |     \\|/
+        |      |
+        |
+        -
+        """,
+        """
+        --------
+        |      |
+        |      O
+        |     \\|/
+        |      |
+        |     /
+        -
+        """,
+        """
+        --------
+        |      |
+        |      O
+        |     \\|/
+        |      |
+        |     / \\
+        -
+        """
+    ]
+
+    return hangman_pic[attempts]
+
 
 
 welcome()
