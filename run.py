@@ -42,7 +42,7 @@ def get_random_word(category):
     Function to retrieve a random word based on the category 
     selected by the player
     """
-    game_word = random.choice(category)
+    game_word = random.choice(category).upper()
     return game_word
 
 
@@ -91,7 +91,7 @@ def welcome():
     )
     
     while True:
-        player_name = input("Please enter a username with less than 10 alpha characters\n")
+        player_name = input("Please enter a username with less than 10 alpha characters\n").upper()
         user_validation(player_name)
         
         if not player_name.isalpha() and len(player_name) < 10:
@@ -251,7 +251,7 @@ def play_hangman(player_name, play_game, category):
     #print(f" Your secret: "+" ".join(display_word) + "\n")
 
     while play_game == "Y":
-        player_guess = input("Please guess a single letter or take a chance trying the complete word\n")
+        player_guess = input("Please guess a single letter or take a chance trying the complete word\n").upper()
         clear_terminal()
         input_validation(player_guess, game_word)
      
