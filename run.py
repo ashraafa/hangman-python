@@ -64,30 +64,30 @@ def welcome():
     Welcome screen for user to enter name
     """
     print(
-        """
-          _   _      _      _   _     ____    __  __      _      _   _     
-         |'| |'| U  /"\  u | \ |"| U /"___|uU|' \/ '|uU  /"\  u | \ |"|    
-        /| |_| |\ \/ _ \/ <|  \| |>\| |  _ /\| |\/| |/ \/ _ \/ <|  \| |>   
-        U|  _  |u / ___ \ U| |\  |u | |_| |  | |  | |  / ___ \ U| |\  |u   
-         |_| |_| /_/   \_\ |_| \_|   \____|  |_|  |_| /_/   \_\ |_| \_|    
-         //   \\  \\    >> ||   \\,-._)(|_  <<,-,,-.   \\    >> ||   \\,-. 
-        (_") ("_)(__)  (__)(_")  (_/(__)__)  (./  \.) (__)  (__)(_")  (_/ 
+    """
+     _   _      _      _   _     ____    __  __      _      _   _     
+    |'| |'| U  /"\  u | \ |"| U /"___|uU|' \/ '|uU  /"\  u | \ |"|    
+ /| |_| |\ \/ _ \/ <|  \| |>\| |  _ /\| |\/| |/ \/ _ \/ <|  \| |>   
+   U|  _  |u / ___ \ U| |\  |u | |_| |  | |  | |  / ___ \ U| |\  |u   
+    |_| |_| /_/   \_\ |_| \_|   \____|  |_|  |_| /_/   \_\ |_| \_|    
+    //   \\  \\    >> ||   \\,-._)(|_  <<,-,,-.   \\    >> ||   \\,-. 
+   (_") ("_)(__)  (__)(_")  (_/(__)__)  (./  \.) (__)  (__)(_")  (_/ 
 
-        """
+    """
     )
     print(
-        """
-        Welcome to Hangman where the rules are simple\n
-        1. You enter your username and then select a category.
-        2. The computer randomly generates a word from the category selected.
-        3. You have 6 attempts to quess the correct word using either a single 
-           letter or the complete word.
-        4. The secret word has "_" as a placeholder to represent the number of 
-           letters.
-        5. Attempts increase if you guess an incorrect letter or incorrect word.
-        6. The computer will not penalize if you enter a letter or word that has
-           been previously used.
-        """
+    """
+                         HANGMAN RULES
+    1. You enter your username and then select a category.
+    2. The computer randomly generates a word from the category selected.
+    3. You have 6 attempts to quess the correct word using either a single 
+       letter or the complete word.
+    4. The secret word has "_" as a placeholder to represent thes number of 
+       letters.
+    5. Attempts increase if you guess an incorrect letter or incorrect word.
+    6. The computer will not penalize if you enter a letter or word that has
+       been previously used.
+    """
     )
     
     while True:
