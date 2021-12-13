@@ -250,8 +250,8 @@ def play_hangman(player_name, play_game, category):
     #print(f" Letters Guessed: {letters_guessed}\n")
     #print(f" Your secret: "+" ".join(display_word) + "\n")
 
-    while play_game == "Y" and attempts <= 7:
-        player_guess = input("Please guess a single letter or take a chance with the complete word\n")
+    while play_game == "Y":
+        player_guess = input("Please guess a single letter or take a chance trying the complete word\n")
         clear_terminal()
         input_validation(player_guess, game_word)
      
@@ -259,36 +259,30 @@ def play_hangman(player_name, play_game, category):
             words_guessed.append(player_guess)
             attempts += 1
             clear_terminal()
-            print(f" {player_guess} is not the hidden word {player_name}. Please try again!")
+            print(f" {player_guess} is not the hidden word {player_name}. You have depleted {attempts} of 7 attempts. Please try again!")
         
         elif len(player_guess) == 1 and player_guess.isalpha() and player_guess not in letters_guessed:
             for letter in player_guess:
                 letters_guessed.append(player_guess)
                 if letter not in game_word:
                     attempts += 1
-                    print("Letter not in word")
-                    print(attempts)
-                    print(f" Guessed Letters: {letters_guessed}\n")
+                    print(f" {player_guess} is not a letter in the hidden word {player_name}. You have depleted {attempts} of 7 attempts. Please try again!")
                 elif letter in game_word:
                     index = [i for i, l in enumerate(game_word) if l == player_guess]
                     for i in index:
                         display_word = display_word[:i] + player_guess + display_word[i+1:]
-                    print("Congrats you chose a correct letter")
-                    print(f" Word: "+" ".join(display_word) + "\n")
+                    print(f" Nice one {player_name}! You have depleted {attempts} of 7 attempts.")
                     if "_" not in display_word:
                         print("Congrats you won_letter!")
                         player_won()
-            else:
-                print("Congrats you won Word!")
-                print(f"Player: {player_name}")
-                play_game = "N"
-                end_game(play_game)
-                    
-        #print("\n")
+
         print(display_hangman(attempts))
-        print(f" Your secret: "+" ".join(display_word) + "\n")
+        print(f" Hidden Word: "+" ".join(display_word) + "\n")
         print(f" Words Guessed: "+" ".join(words_guessed) + "\n")
-        print(f" Letters Guessed: "+" ".join(letters_guessed) + "\n")      
+        print(f" Letters Guessed: "+" ".join(sorted(letters_guessed)) + "\n")  
+
+    else:
+        print("Sorry..You lost") 
 
 def end_game(play_game):
     """
