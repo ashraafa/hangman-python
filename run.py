@@ -85,7 +85,17 @@ def welcome():
        been previously used.
     """
     )
+
+    input("Press any key to continue...")
+    clear_terminal()
+    get_user()
     
+
+def get_user():
+    """
+    Function to validate and return a username
+    """
+
     while True:
         player_name = input("Please enter a username with less than 10 characters from the alphabet only...\n").upper()
         user_validation(player_name)
@@ -434,15 +444,6 @@ def display_hangman(attempts):
 
 
 welcome()
-#player_options()
-#end_game(play_game)
-#player_options()
-#game_category()
-#play_hangman(play_game, category)
-#player_options()
-
-#play_hangman()
-#player_lost()
 
 
             
