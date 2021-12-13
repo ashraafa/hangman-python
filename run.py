@@ -54,7 +54,15 @@ def clear_terminal():
 
 
 class colors:
-    RED = '\033[1;31;40m'
+    RESET = '\33[0m'
+    UNDERLINE = '\033[04m'
+    RED = '\033[31m'
+    BLUE = '\033[34m'
+    LIGHTBLUE = '\033[94m'
+    GREEN ='\033[32m'
+    LIGHTGREEN ='\033[92m'
+
+
 
 play_game = ""
 player_guess = ""
@@ -63,9 +71,10 @@ words_guessed = []
 
 def welcome():
     """
-    Welcome screen for user to enter name
+    Function to display a welcome screen with the game rules
     """
     print(
+        colors.BLUE + 
     """
      _   _      _      _   _     ____    __  __      _      _   _     
     |'| |'| U  /"\  u | \ |"| U /"___|uU|' \/ '|uU  /"\  u | \ |"|    
@@ -78,10 +87,9 @@ def welcome():
     """
     )
     print(
-    
-                colors.RED + "HANGMAN RULES"
+        colors.RED + "HANGMAN RULES" + colors.RESET +
     """
-    1. The computer randomly generates a word from the category selected.
+    1. The computer randomly generates a word from the category selected. 
     2. You have 6 attempts to quess the correct word using either a single 
        letter or the complete word.
     3. The secret word has "_" as a placeholder to represent thes number of 
@@ -91,7 +99,7 @@ def welcome():
     """
     )
 
-    input("Press any key to continue...")
+    input(colors.GREEN + "Press any key to continue..." + colors.RESET)
     clear_terminal()
     get_user()
     
@@ -102,10 +110,10 @@ def get_user():
     """
 
     while True:
-        player_name = input("Please enter a username with less than 10 characters from the alphabet only...\n").upper()
+        player_name = input(colors.GREEN + "Please enter a username with less than 10 characters from the alphabet only.\n" + colors.RESET).upper()
         user_validation(player_name)
         
-        if not player_name.isalpha() and len(player_name) < 10:
+        if not player_name.isalpha() or len(player_name) > 10:
             player_name = ""
         else:
             clear_terminal()
@@ -172,13 +180,14 @@ def user_validation(player_name):
             raise ValueError(
                 f" You can only enter letters. You entered {player_name}"
             )
+
         elif len(player_name) > 10:
             raise ValueError(
                 f" You are only allowed 10 letters. You entered: {len(player_name)}"
             )
 
     except ValueError as e:
-        print(f"{e}\n")
+        print(f" {colors.RED}{e}{colors.RESET}") 
 
 def input_validation(player_guess, game_word):
     """
