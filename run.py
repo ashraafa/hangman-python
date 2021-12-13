@@ -255,28 +255,21 @@ def play_hangman(player_name, play_game, category):
         clear_terminal()
         input_validation(player_guess, game_word)
      
-        
-        if len(player_guess) == len(game_word) and player_guess != game_word and player_guess.isalpha() and player_guess in words_guessed:
-            words_guessed.append(player_guess)
-            print(f" {player_guess} is not the hidden word")
-        
-        elif len(player_guess) == len(game_word) and player_guess != game_word and player_guess.isalpha() and player_guess not in words_guessed:
+        if len(player_guess) == len(game_word) and player_guess != game_word and player_guess.isalpha() and player_guess not in words_guessed:
             words_guessed.append(player_guess)
             attempts += 1
-            print(f" Words Guessed: {words_guessed}")
-            print(f" Your attempts: {attempts}\n")
-            
-            
-        elif len(player_guess) == len(game_word) and player_guess == game_word:
-            print("Congrats you won Word!")
-            print(f"Player: {player_name}")
-            play_game = "N"
-            end_game(play_game)
+            clear_terminal()
+            print(f" {player_guess} is not the hidden word {player_name}. Please try again!")
         
         elif len(player_guess) == 1 and player_guess.isalpha() and player_guess not in letters_guessed:
             for letter in player_guess:
                 letters_guessed.append(player_guess)
-                if letter in game_word:
+                if letter not in game_word:
+                    attempts += 1
+                    print("Letter not in word")
+                    print(attempts)
+                    print(f" Guessed Letters: {letters_guessed}\n")
+                elif letter in game_word:
                     index = [i for i, l in enumerate(game_word) if l == player_guess]
                     for i in index:
                         display_word = display_word[:i] + player_guess + display_word[i+1:]
@@ -286,17 +279,16 @@ def play_hangman(player_name, play_game, category):
                         print("Congrats you won_letter!")
                         player_won()
             else:
-                if letter not in game_word:
-                    attempts += 1
-                    print("Letter not in word")
-                    print(attempts)
-                    print(f" Guessed Letters: {letters_guessed}\n")
+                print("Congrats you won Word!")
+                print(f"Player: {player_name}")
+                play_game = "N"
+                end_game(play_game)
                     
-        print("\n")
+        #print("\n")
         print(display_hangman(attempts))
         print(f" Your secret: "+" ".join(display_word) + "\n")
-        print(f" Words Guessed: {words_guessed}\n")
-        print(f" Letters Guessed: {letters_guessed}\n")       
+        print(f" Words Guessed: "+" ".join(words_guessed) + "\n")
+        print(f" Letters Guessed: "+" ".join(letters_guessed) + "\n")      
 
 def end_game(play_game):
     """
