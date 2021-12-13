@@ -217,7 +217,12 @@ def input_validation(player_guess, game_word):
                 f" You can only enter letters. You entered {player_guess}"
             )
         
-        elif player_guess in letters_guessed or words_guessed:
+        elif player_guess in letters_guessed:
+            raise ValueError(
+                f" You already guessed {player_guess}"
+            )
+        
+        elif player_guess in words_guessed:
             raise ValueError(
                 f" You already guessed {player_guess}"
             )
@@ -225,9 +230,41 @@ def input_validation(player_guess, game_word):
     except ValueError as e:
             print({e})
 
-def player_won():
-    print("Congrats you won")
-    print(" Would you like to continue: Y/N\n")
+def player_won(player_name, game_word):
+    print(
+        """
+          __   __   U  ___ u   _   _                     U  ___ u  _   _     
+          \ \ / /    \/"_ \/U |"|u| |     __        __    \/"_ \/ | \ |"|    
+           \ V /     | | | | \| |\| |     \"\      /"/    | | | |<|  \| |>   
+          U_|"|_u.-,_| |_| |  | |_| |     /\ \ /\ / /\.-,_| |_| |U| |\  |u   
+            |_|   \_)-\___/  <<\___/     U  \ V  V /  U\_)-\___/  |_| \_|    
+        .-,//|(_       \\   (__) )(      .-,_\ /\ /_,-.     \\    ||   \\,-. 
+         \_) (__)     (__)      (__)      \_)-'  '-(_/     (__)   (_")  (_/  
+        """
+    )
+
+    print(f" Well done {player_name}! The correct word was {game_word}\n")
+    print(f" Would you like to continue: Y/N\n")
+
+    input_continue = False
+
+    while not input_continue:
+        continue_choice = input("Enter your selection below\n").upper()
+
+        if continue_choice == "Y":
+            continue_choice = True
+            clear_terminal()
+            game_category(player_name)
+        elif continue_choice == "N":
+            input_choice = True
+
+            clear_terminal()
+            welcome()
+        else:
+            print(f"You entered {continue_choice}. Only letters Y or N is allowed\n")
+    return continue_choice
+
+    
 
 def player_lost():
     print("Sorry you lost")
@@ -242,6 +279,7 @@ def play_hangman(player_name, play_game, category):
     game_word = get_random_word(category)
     display_word = "_" * len(game_word)
 
+
     
     #print(f" Attempts: {attempts}\n")
     print(f" Word to guess: {game_word}\n")
@@ -250,7 +288,7 @@ def play_hangman(player_name, play_game, category):
     #print(f" Letters Guessed: {letters_guessed}\n")
     #print(f" Your secret: "+" ".join(display_word) + "\n")
 
-    while play_game == "Y":
+    while play_game == "Y" and attempts <= 7:
         player_guess = input("Please guess a single letter or take a chance trying the complete word\n").upper()
         clear_terminal()
         input_validation(player_guess, game_word)
@@ -258,8 +296,12 @@ def play_hangman(player_name, play_game, category):
         if len(player_guess) == len(game_word) and player_guess != game_word and player_guess.isalpha() and player_guess not in words_guessed:
             words_guessed.append(player_guess)
             attempts += 1
-            clear_terminal()
             print(f" {player_guess} is not the hidden word {player_name}. You have depleted {attempts} of 7 attempts. Please try again!")
+        
+        elif len(player_guess) == len(game_word) and player_guess == game_word:
+            letters_guessed.clear()
+            words_guessed.clear()
+            player_won(player_name, game_word)
         
         elif len(player_guess) == 1 and player_guess.isalpha() and player_guess not in letters_guessed:
             for letter in player_guess:
@@ -273,16 +315,18 @@ def play_hangman(player_name, play_game, category):
                         display_word = display_word[:i] + player_guess + display_word[i+1:]
                     print(f" Nice one {player_name}! You have depleted {attempts} of 7 attempts.")
                     if "_" not in display_word:
-                        print("Congrats you won_letter!")
-                        player_won()
+                         letters_guessed.clear()
+                         words_guessed.clear()
+                         player_won(player_name, game_word)
 
         print(display_hangman(attempts))
         print(f" Hidden Word: "+" ".join(display_word) + "\n")
         print(f" Words Guessed: "+" ".join(words_guessed) + "\n")
         print(f" Letters Guessed: "+" ".join(sorted(letters_guessed)) + "\n")  
-
+       
     else:
         print("Sorry..You lost") 
+
 
 def end_game(play_game):
     """
