@@ -52,6 +52,10 @@ def clear_terminal():
     """
     os.system('cls' if os.name == 'nt' else 'clear')
 
+
+class colors:
+    RED = '\033[1;31;40m'
+
 play_game = ""
 player_guess = ""
 letters_guessed = []
@@ -74,8 +78,9 @@ def welcome():
     """
     )
     print(
+    
+                colors.RED + "HANGMAN RULES"
     """
-                         HANGMAN RULES
     1. The computer randomly generates a word from the category selected.
     2. You have 6 attempts to quess the correct word using either a single 
        letter or the complete word.
@@ -106,33 +111,6 @@ def get_user():
             clear_terminal()
             game_category(player_name)
             return player_name
-"""
-def player_options(player_name):
-
-    Function to present player with options
-    
-    print(f"Welcome {player_name}\n")
-    print("Enter 1 to Play Game")
-    print("Enter 2 to View Leaderboard\n")
-
-    input_choice = False
-
-    while not input_choice:
-        user_choice = input("Enter your selection below\n")
-
-        if user_choice == "1":
-            input_choice = True
-            clear_terminal()
-            game_category(player_name)
-        elif user_choice == "2":
-            input_choice = True
-            clear_terminal()
-            get_leaderboard()
-        else:
-            print(f"You entered {user_choice}. Only numbers 1 or 2 is allowed\n")
-    return user_choice
-"""  
-
 
 def game_category(player_name):
     """
