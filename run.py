@@ -83,8 +83,8 @@ def welcome():
         3. You have 7 attempts to quess the correct word using either a single 
            letter or the complete word.
         4. The secret word has "_" as a placeholder to represent the number of 
-           words.
-        5. Attempts increase if guess an incorrect letter or incorrect word.
+           letters.
+        5. Attempts increase if you guess an incorrect letter or incorrect word.
         6. The computer will not penalize if you enter a letter or word that has
            been previously used.
         """
@@ -186,11 +186,11 @@ def user_validation(player_name):
     """
     try:
         if not player_name.isalpha():
-            raise ValueError (
+            raise ValueError(
                 f" You can only enter letters. You entered {player_name}"
             )
         elif len(player_name) > 10:
-            raise ValueError (
+            raise ValueError(
                 f" You are only allowed 10 letters. You entered: {len(player_name)}"
             )
 
@@ -205,17 +205,17 @@ def input_validation(player_guess, game_word):
         if len(player_guess) < len(game_word) and len(player_guess) > 1 and player_guess.isalpha():
             raise ValueError(
                 f" {player_guess} is shorter than the hidden word and not a single letter"
-                )
+            )
 
         elif len(player_guess) > len(game_word) and len(player_guess) > 1 and player_guess.isalpha():
             raise ValueError(
                 f" {player_guess} is longer than the hidden word and not a single letter"
-                )
+            )
 
         elif not player_guess.isalpha() or player_guess == 1:
             raise ValueError(
                 f" You can only enter letters. You entered {player_guess}"
-                )
+            )
         
         elif player_guess in letters_guessed or words_guessed:
             raise ValueError(
@@ -243,15 +243,17 @@ def play_hangman(player_name, play_game, category):
     display_word = "_" * len(game_word)
 
     
-    print(f" Attempts: {attempts}\n")
+    #print(f" Attempts: {attempts}\n")
     print(f" Word to guess: {game_word}\n")
-    print(f" Words Guessed: {words_guessed}\n")
-    print(f" Letters Guessed: {letters_guessed}\n")
-    print(f" Your secret: "+" ".join(display_word) + "\n")
+    #print(f" Words Guessed: {words_guessed}\n")
+    #print(f" Letters Guessed: {letters_guessed}\n")
+    #print(f" Your secret: "+" ".join(display_word) + "\n")
 
-    while play_game == "Y" and attempts < 2:
+    while play_game == "Y" and attempts <= 7:
         player_guess = input("Please guess a single letter or take a chance with the complete word\n")
+        clear_terminal()
         input_validation(player_guess, game_word)
+     
         
         if len(player_guess) == len(game_word) and player_guess != game_word and player_guess.isalpha() and player_guess in words_guessed:
             words_guessed.append(player_guess)
@@ -287,10 +289,12 @@ def play_hangman(player_name, play_game, category):
                     attempts += 1
                     print("Letter not in word")
                     print(attempts)
-                    print(f" Guessed Letters: {letters_guessed}\n")             
-        else:
-            print(str("Incorrect letter"))
-            print(letters_guessed)
+                    print(f" Guessed Letters: {letters_guessed}\n")
+                    
+        print("\n")
+        print(f" Your secret: "+" ".join(display_word) + "\n")
+        print(f" Words Guessed: {words_guessed}\n")
+        print(f" Letters Guessed: {letters_guessed}\n")       
 
 def end_game(play_game):
     """
