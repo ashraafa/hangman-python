@@ -2,6 +2,10 @@ import os
 
 
 class colors:
+    """
+    Class with color variables defined for 
+    applying to text in the console
+    """
     RESET = '\33[0m'
     UNDERLINE = '\033[04m'
     BOLD = '\033[01m'
@@ -22,6 +26,7 @@ def clear_terminal():
 def display_hangman(attempts):
     """
     Function to display hangman picture in ascending order
+    when called by play_hangman() function.
     """
     hangman_pic = [
         """

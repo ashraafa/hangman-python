@@ -4,6 +4,7 @@ import helpers
 def user_validation(player_name):
     """
     Function to validate the input received from the user
+    when submitting the username
     """
     try:
         if not player_name.isalpha():
@@ -26,6 +27,7 @@ def user_validation(player_name):
 def input_validation(player_guess, game_word, letters_guessed, words_guessed):
     """
     Function to validate the input received from the user
+    when submiting possible responses for the hidden word
     """
     try:
         if len(player_guess) < len(game_word) and len(player_guess) > 1 and \
