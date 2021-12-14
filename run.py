@@ -11,6 +11,7 @@ player_guess = ""
 letters_guessed = []
 words_guessed = []
 
+
 def get_random_word(category):
     """
     Function to retrieve a random word based on the category
