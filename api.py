@@ -24,7 +24,6 @@ MOVIES = SHEET.worksheet('movies').get_all_values()
 SPORTS = SHEET.worksheet('sports').get_all_values()
 HARD = SHEET.worksheet('hard').get_all_values()
 
-
 # Variables to declare a new list from the default nested API list
 
 animals = [x for list in ANIMALS for x in list]

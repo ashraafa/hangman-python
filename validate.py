@@ -20,8 +20,8 @@ def user_validation(player_name):
             )
 
     except ValueError as e:
-        print(f" {helpers.colors.RED}{helpers.colors.BOLD}{e}"
-              f"{helpers.colors.RESET}\n")
+        print(f" {helpers.COLORS.RED}{helpers.COLORS.BOLD}{e}"
+              f"{helpers.COLORS.RESET}\n")
 
 
 def input_validation(player_guess, game_word, letters_guessed, words_guessed):
@@ -57,5 +57,5 @@ def input_validation(player_guess, game_word, letters_guessed, words_guessed):
                 f"You already guessed {player_guess}".upper()
             )
     except ValueError as e:
-        print(f"{helpers.colors.RED}{helpers.colors.BOLD}{e}"
-              f"{helpers.colors.RESET}\n")
+        print(f"{helpers.COLORS.RED}{helpers.COLORS.BOLD}{e}"
+              f"{helpers.COLORS.RESET}\n")
