@@ -3,6 +3,13 @@ import validate
 import helpers
 import api
 
+"""
+Variables that need to be declared for more than one function
+"""
+play_game = ""
+player_guess = ""
+letters_guessed = []
+words_guessed = []
 
 def get_random_word(category):
     """
@@ -11,12 +18,6 @@ def get_random_word(category):
     """
     game_word = random.choice(category).upper()
     return game_word
-
-
-play_game = ""
-player_guess = ""
-letters_guessed = []
-words_guessed = []
 
 
 def welcome():
@@ -52,6 +53,7 @@ def welcome():
 
     input(helpers.colors.GREEN + "Press ENTER to continue..." +
           helpers.colors.RESET)
+    helpers.clear_terminal()
     get_user()
 
 
@@ -62,8 +64,10 @@ def get_user():
     Parse username to game_category()
     """
     while True:
-        player_name = input(helpers.colors.GREEN + "Please enter a username \
-            alphabet only.\n" + helpers.colors.RESET).upper()
+        player_name = input(helpers.colors.GREEN +
+                            "Please enter a username with a maximum of 10 "
+                            "characters from the alphabet only.\n" +
+                            helpers.colors.RESET).upper()
         helpers.clear_terminal()
         validate.user_validation(player_name)
         if not player_name.isalpha() or len(player_name) > 10:
@@ -79,8 +83,8 @@ def game_category(player_name):
     Function to present player with game category options.
     Parse player_name, play_game and category value to play_hangman()
     """
-    print(f"{helpers.colors.BLUE}{helpers.colors.BOLD}{player_name},"
-          f"please select 1 of 5 options below. If you're feeling lucky,"
+    print(f"{helpers.colors.BLUE}{helpers.colors.BOLD}{player_name}, "
+          f"please select 1 of 5 options below. If you're feeling lucky, "
           f"choose the Hard option.{helpers.colors.RESET}\n")
     print("Enter " + helpers.colors.BLUE + helpers.colors.BOLD +
           "1 " + helpers.colors.RESET + "for " + helpers.colors.BLUE +
@@ -101,8 +105,8 @@ def game_category(player_name):
     input_category = False
 
     while not input_category:
-        category_choice = input(helpers.colors.GREEN + "Enter your category \
-           selection below\n" + helpers.colors.RESET)
+        category_choice = input(helpers.colors.GREEN + "Enter your category"
+                                " selection below:\n" + helpers.colors.RESET)
         if category_choice == "1":
             category = api.animals
             input_category = True
@@ -238,9 +242,9 @@ def play_hangman(player_name, play_game, category):
           helpers.colors.RESET)
 
     while play_game == "Y" and attempts <= 5:
-        player_guess = input(helpers.colors.GREEN + "Please guess a single \
-            letter or take a chance entering the complete \
-            word\n" + helpers.colors.RESET).upper()
+        player_guess = input(helpers.colors.GREEN + "Please guess a single "
+                             "letter or take a chance entering the complete "
+                             "word\n" + helpers.colors.RESET).upper()
         helpers.clear_terminal()
         validate.input_validation(player_guess, game_word, letters_guessed,
                                   words_guessed)
@@ -249,8 +253,8 @@ def play_hangman(player_name, play_game, category):
                 words_guessed:
             words_guessed.append(player_guess)
             attempts += 1
-            print(f"{helpers.colors.BLUE}{helpers.colors.BOLD}{player_guess}"
-                  f"is not the hidden word {player_name}. You have depleted"
+            print(f"{helpers.colors.BLUE}{helpers.colors.BOLD}{player_guess} "
+                  f"is not the hidden word {player_name}. You have depleted "
                   f"{attempts} of 6 attempts!{helpers.colors.RESET}")
         elif len(player_guess) == len(game_word) and player_guess == game_word:
             letters_guessed.clear()
@@ -264,8 +268,8 @@ def play_hangman(player_name, play_game, category):
                 if letter not in game_word:
                     attempts += 1
                     print(f"{helpers.colors.BLUE}{helpers.colors.BOLD}"
-                          f"{player_guess} is not a letter in the hidden word"
-                          f"{player_name}. You have depleted {attempts} of"
+                          f"{player_guess} is not a letter in the hidden word "
+                          f"{player_name}. You have depleted {attempts} of "
                           f"6 attempts!{helpers.colors.RESET}")
                 elif letter in game_word:
                     index = [i for i, let in enumerate(game_word) if
@@ -273,9 +277,9 @@ def play_hangman(player_name, play_game, category):
                     for i in index:
                         display_word = display_word[:i] + player_guess \
                                        + display_word[i+1:]
-                    print(f"{helpers.colors.BLUE}{helpers.colors.BOLD}Nice one"
-                          f"{player_name}! You have depleted {attempts} of"
-                          f"6 attempts.{helpers.colors.RESET}")
+                    print(f"{helpers.colors.BLUE}{helpers.colors.BOLD}Nice "
+                          f" one {player_name}! You have depleted {attempts} "
+                          f" of 6 attempts.{helpers.colors.RESET}")
                     if "_" not in display_word:
                         letters_guessed.clear()
                         words_guessed.clear()
@@ -284,12 +288,13 @@ def play_hangman(player_name, play_game, category):
 
         print(helpers.colors.YELLOW + helpers.display_hangman(attempts) +
               helpers.colors.RESET)
-        print(f"Hidden Word: {helpers.colors.CYAN} "+" \
-              ".join(display_word) + "\n")
-        print(f"{helpers.colors.RESET}Words Guessed: {helpers.colors.CYAN} "+" \
-             ".join(words_guessed) + "\n")
-        print(f"{helpers.colors.RESET}Letters Guessed: {helpers.colors.CYAN} "+" \
-             ".join(sorted(letters_guessed)) + "\n")
+        print(f"Hidden Word: {helpers.colors.CYAN} "+" "
+              "".join(display_word) + "\n")
+        print(f"{helpers.colors.RESET}Words Guessed: "
+              f"{helpers.colors.CYAN} "+" ".join(words_guessed) + "\n")
+        print(f"{helpers.colors.RESET}Letters Guessed: "
+              f"{helpers.colors.CYAN} "+" ".join(sorted(letters_guessed)) +
+              "\n" + helpers.colors.RESET)
     else:
         letters_guessed.clear()
         words_guessed.clear()
