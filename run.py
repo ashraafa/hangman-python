@@ -1,41 +1,7 @@
-import gspread
-from google.oauth2.service_account import Credentials
 import random
 import validate
 import helpers
-
-SCOPE = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive.file",
-    "https://www.googleapis.com/auth/drive"
-]
-"""
-Constants for declaring API credentials and accessing the
-the Google workbook
-"""
-CREDS = Credentials.from_service_account_file('creds.json')
-SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('hangman_python')
-
-"""
-Constants for accessing worksheets in the Google workbook
-"""
-ANIMALS = SHEET.worksheet('animals').get_all_values()
-CARS = SHEET.worksheet('cars').get_all_values()
-MOVIES = SHEET.worksheet('movies').get_all_values()
-SPORTS = SHEET.worksheet('sports').get_all_values()
-HARD = SHEET.worksheet('hard').get_all_values()
-
-"""
-Variables to declare a new list from the default nested list
-retrieved by the API
-"""
-animals = [x for list in ANIMALS for x in list]
-cars = [x for list in CARS for x in list]
-movies = [x for list in MOVIES for x in list]
-sports = [x for list in SPORTS for x in list]
-hard = [x for list in HARD for x in list]
+import api
 
 def get_random_word(category):
     """
@@ -121,31 +87,31 @@ def game_category(player_name):
         category_choice = input(helpers.colors.GREEN + "Enter your category selection below\n" + helpers.colors.RESET)
         
         if category_choice == "1":
-            category = animals
+            category = api.animals
             input_category = True
             play_game = "Y"
             helpers.clear_terminal()
             play_hangman(player_name, play_game, category)
         elif category_choice == "2":
-            category = cars
+            category = api.cars
             input_category = True
             play_game = "Y"
             helpers.clear_terminal()
             play_hangman(player_name, play_game, category)
         elif category_choice == "3":
-            category = movies
+            category = api.movies
             input_category = True
             play_game = "Y"
             helpers.clear_terminal()
             play_hangman(player_name, play_game, category)
         elif category_choice == "4":
-            category = sports
+            category = api.sports
             input_category = True
             play_game = "Y"
             helpers.clear_terminal()
             play_hangman(player_name, play_game, category)
         elif category_choice == "5":
-            category = hard
+            category = api.hard
             input_category = True
             play_game = "Y"
             helpers.clear_terminal()
@@ -281,16 +247,6 @@ def play_hangman(player_name, play_game, category):
         words_guessed.clear()
         helpers.clear_terminal()
         player_lost(player_name, game_word)
-
-def end_game(play_game):
-    """
-    Function to disaply end of game screen
-    """
-
-    if play_game == "N":
-            print(" Thank you for playing!")
-    else:
-        print("Would you like to continue")
 
 welcome()
 
