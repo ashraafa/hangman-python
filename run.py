@@ -228,6 +228,13 @@ def play_hangman(player_name, play_game, category):
 
     print(helpers.Colors.ASCII + helpers.display_hangman(attempts) +
           helpers.Colors.RESET)
+    print(f"Hidden Word: {helpers.Colors.OUTPUT} "+" "
+          "".join(display_word) + "\n")
+    print(f"{helpers.Colors.RESET}Words Guessed: "
+          f"{helpers.Colors.OUTPUT} "+" ".join(words_guessed) + "\n")
+    print(f"{helpers.Colors.RESET}Letters Guessed: "
+          f"{helpers.Colors.OUTPUT} "+" ".join(sorted(letters_guessed)) +
+          "\n" + helpers.Colors.RESET)
 
     while play_game == "Y" and attempts <= 5:
         player_guess = input(helpers.Colors.INPUT + "Please guess a single "
