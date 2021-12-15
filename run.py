@@ -92,8 +92,8 @@ def game_category(player_name):
     Function to present player with game category options.
     Parse player_name, play_game and category value to play_hangman()
     """
-    print(f"{helpers.Colors.MESSAGE}{helpers.Colors.BOLD}{player_name}, "
-          f"please select 1 of 5 options below.\n")
+    print(f"{helpers.Colors.MESSAGE}{helpers.Colors.BOLD}Welcome "
+          f"{player_name}, please select 1 of 5 options below.\n")
     print("If you're feeling lucky, choose the Hard option."
           f"{helpers.Colors.RESET}\n")
     print("Enter " + helpers.Colors.MESSAGE + helpers.Colors.BOLD +
