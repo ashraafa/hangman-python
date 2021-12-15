@@ -1,16 +1,14 @@
 import os
 
-
-class Colors:
-    # Class with color variables defined for applying to text in the console
-    RESET = '\33[0m'
-    UNDERLINE = '\033[04m'
-    BOLD = '\033[01m'
-    ERROR = '\033[31m'
-    MESSAGE = '\033[34m'
-    INPUT = '\033[32m'
-    ASCII = '\033[93m'
-    OUTPUT = '\033[36m'
+# Constants with color variables defined for applying to text in the console
+RESET = '\33[0m'
+UNDERLINE = '\033[04m'
+BOLD = '\033[01m'
+ERROR = '\033[31m'
+MESSAGE = '\033[34m'
+INPUT = '\033[32m'
+ASCII = '\033[93m'
+OUTPUT = '\033[36m'
 
 
 def clear_terminal():

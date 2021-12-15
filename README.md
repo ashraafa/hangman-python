@@ -47,28 +47,36 @@ The live site can be accessed [here](https://ashraaf-hangman.herokuapp.com/)
   * Game Workflow
     * The game workflow was designed using [Lucid Charts](https://www.lucidchart.com/).
 
-    ![Flowchart](assets/images/landing-page-wf.png)
+    ![Flowchart](assets/images/google-workbook.png)
 
- * Google Sheets
-    * The game catogories are stored in a google sheets workbook. Each category is stored a separate worksheet and accessed via the Google API.
+  * Google Sheets
+    * The game catogories are stored in a google sheets workbook. Each category is stored a separate worksheet and accessed via the Google API
 
-    ![Google Workbook](assets/images/landing-page-wf.png)
+    *PS: I intentionally hid the rows in the image below as it contains the Hangman words*
+
+    ![Google Workbook](assets/images/google-workbook.PNG)
  
   * Text to ASCII
-    * ASCII art was defined for the welcome screen and when the player wins the game. The tool used to generate the ASCII art can be found [here](http://patorjk.com/).
+    * ASCII art was defined for the welcome screen and when the player wins the game. The tool used to generate the ASCII art can be found [here](http://patorjk.com/)
+    
+    ![ASCII Generator](assets/images/ascii-generator.png)
 
-    ![ASCII Generator](assets/images/landing-page-wf.png)
-
-  * Colour Palette
-    * Colors were defined in a class and labelled for their purpose
+  * Text Colors & Formatting
+    * Colors were defined as constants and labelled for their purpose
 
       * ERROR = Red
       * MESSAGE = Blue
       * INPUT = Green
       * ASCII = Yellow
       * OUTPUT = Cyan
+
+    * Formating was also included in the Colors constants
+
+      * RESET = resets the colors and format to default
+      * UNDERLINE = underlines the text
+      * BOLD = font weight is increased
     
-    ![Color Class](assets/images/landing-page-wf.png)
+    ![Color Class](assets/images/color-constants.png)
 
 
 ## 3. Features
@@ -79,7 +87,7 @@ This section introduces the features that have been implemented to satisfy the u
   * Rules are displayed to provide the player with the basic information required to play the game.
   * The option to continue is displayed in green and when the user hits Enter on the keyboard they can continue
 
-  ![Welcome](assets/images/welcome.PNG)
+    ![Welcome](assets/images/welcome.PNG)
 
 * Enter Username
   * The game requires the user to enter a username in order to personalize the messages being displayed
@@ -91,51 +99,77 @@ This section introduces the features that have been implemented to satisfy the u
 
     ![Value Error Max Letters](assets/images/game-navigation.PNG)
 
-* Informational Video
-  * The informational video adds some humour whilst providing an overview of the general game rules.
+* Display Categories
+  * Upon successful validation of the username, the player is presented with a personalised message with text to confirm the next steps required by the player.
 
-    ![Informational Video](assets/images/info-video.PNG)
+    ![Game Category Message](assets/images/info-video.PNG)
 
-* Player Controls
-  * The player controls are displayed when the user clicks Play.
-  * The controls make use of [Font Awesome](https://fontawesome.com/) icons using an array of bright colors.
+  * The player is provided with the number to enter once they have decided on their word category of choice.
 
-    ![Player Controls](assets/images/player-controls.PNG)
+    ![Game Category Options](assets/images/info-video.PNG)
 
-* Game Score
-  * The game score is displayed at the bottom of the game for visibility.
-  * The winner is the player that is first to win 3 games and therefore the score needs to remain visible at all times.
+  * If  the player enters any option other than the numbers available. They are presented with an error message in red text.
 
-    ![Game Score](assets/images/game-score.PNG)
+    ![Game Category Error Message](assets/images/info-video.PNG)
 
-* Round Result Message
-  * The round result is displayed each time a player selects a hand. The result is either Won, Lost or Draw.
-  * The message includes the player selection and game selection.
-  * The message provides a result reason as well. These are the same reasons provided in the Rules section.
-  * The number of rounds won is displayed in the message and allows user to keep track of the round score.
+* Main Game Screen
+  * The player is presented with a personalized message.
 
-    ![Round Result Won](assets/images/round-won-message.PNG)
+    ![Good Luck Message](assets/images/player-controls.PNG)
 
-    ![Round Result Lost](assets/images/round-lost-message.PNG)
+  * The initial state of the hangman image is displayed to the player along with the placeholders for hidden word, words guessed and letters guessed.
+    
+    ![Play Hangman Initial Page](assets/images/player-controls.PNG)
 
-* Game Won Message
-  * The game result is displayed each time any player wins 2 rounds.
-  * The message includes the player selection and game selection
-  * The message provides a result reason as well. These are the same reasons provided in the Rules section.
-  * The number of games won is not displayed in the message as it is visible on the main page.
-  * The message includes a warning that if the user clicks Quit the game will be terminated.
+  * The player is prompted to enter a letter or complete word.
+    
+    ![Play Hangman Input](assets/images/player-controls.PNG)
 
-    ![Game Result Won](assets/images/game-won-message.PNG)
+  * If the player enters any value other than a single letter or word that matches the length of hidden word. They are presented with Value error message in red text.
 
-    ![Game Result Lost](assets/images/game-lost-message.PNG)
+    ![Game Category Error Message](assets/images/info-video.PNG)
 
-* Final Result
-  * The final result is displayed after the first player wins 3 games.
+  * If the player enters a letter not in the hidden word, the following is executed:
+    * The message at the top of the terminal is updated with confirmation that available attempts has decreased.
+    * The hangman image is updated.
+    * The letter guessed is added to the Letters Guessed placeholder.
+    
+    ![Play Hangman Incorrect Letter Guessed](assets/images/player-controls.PNG)
 
-    ![Final Result Won](assets/images/final-result-won.PNG)
+  * If the player enters a letter that is in the hidden word, the following is executed:
+    * The message at the top of the terminal is updated with confirmation and a reminder of the number of attempts used so far.
+    * The hangman image is not updated as it was a correct letter.
+    * The hidden word reveals the location of the letter in the word.
+    * The letter guessed is added to the Letters Guessed placeholder.
+    
+    ![Play Hangman Correct Letter Guessed](assets/images/player-controls.PNG)
 
-    ![Final Result Lost](assets/images/final-result-lost.PNG)
+    * If the player enters a letter that was already guessed, the following is executed:
+    * The player is presented with an error message in red text and neither the attempts or hangman picture is altered as the player is not penalized.
+    
+    ![Play Hangman Already Guessed Letter](assets/images/player-controls.PNG)
 
+    * If the player enters a word that is not the hidden word, the following is executed:
+    * The message at the top of the terminal is updated with confirmation that available attempts has decreased.
+    * The hangman image is updated.
+    * The word guessed is added to the Words Guessed placeholder.
+    
+    ![Play Hangman Incorrect Word Guessed](assets/images/player-controls.PNG)
+
+    * If the player enters a word that was already guessed, the following is executed:
+    * The player is presented with an error message in red text and neither the attempts or hangman picture is altered as the player is not penalized.
+    
+    ![Play Hangman Already Guessed Word](assets/images/player-controls.PNG)
+ 
+* Game Won Screen
+   * If the player enters a word that is the hidden word. The game won screen is displayed and user is presented with the option to play again or return to main screen
+    
+    ![Play Hangman Game Won](assets/images/player-controls.PNG)  
+
+* Game Lost Screen
+   * If the player depletes their available attempts with letters or words used. The game lost screen is displayed and user is presented with the option to play again or return to main screen
+    
+    ![Play Hangman Game Won](assets/images/player-controls.PNG)  
 
 ## 4. Testing
 
@@ -143,85 +177,84 @@ This section introduces the features that have been implemented to satisfy the u
 
   * As a player of the game, I want to know the rules of the game.
 
-    * Player can click Rules button to display game rules once the landing page has loaded.
-    * Player can access rules via the Rules button whilst the game controls are displayed.
-    * Player can access the rules via the Rules button when a round result message is displayed.
-    * Player can access the rules via the Rules button when a game result message is displayed.
+    * Player can view the rules of the game on welcome screen.
 
-  * As a player of the game, I want to start the game at any time.
+  * As a player of the game, I want to enter my name to personalise my game messages.
 
-    * Player can start the game immediately after the page loads by clicking the Play button.
-    * Player must close the Rules message before the Play button is enabled again.
+    * Player can enter a username that complies with the game's requirements.
 
-  * As a player of the game, I want to quit the game at any time.
+  * As a player of the game, I want the option to choose a category.
 
-    * Player can click the Quit button at any time during the game.
-    * The current round scores are reset to zero when the user clicks the Quit button.
-    * The current game scores are reset to zero when the user clicks the Quit button.
+    * Player can make a selection that is available in the game category options.
 
-  * As a player of the game, I want to see the choice made by the game.
+  * As a player of the game, I want to see where the correct letters fit in the hidden word.
 
-    * Player can see the game's choice on the round results message window.
-    * Player can see the game's choice on the game results message window.
-    * Player can see the game's choice on the finals results message window.
+    * Player can see the hidden word which is represented by "_" for each letter of the word.
 
-  * As a player of the game, I want to see the reason I won or lost.
-    * Player can see the result reason on the round results message window.
-    * Player can see the result reason on the game results message window.
-    * Player can see the result reason on the final results message window.
+  * As player of the game, I want to see the the words I guessed.
 
-  * As a player of the game, I want to see my progress
-    * Player can view the number of games won at all times when the game is active
+    * Player can see the words already guessed
 
-  * As a player of the game, I want to know when the game is complete.
-    * Player gets a final result won message if the player is the first to win 3 games.
-    * Player gets a final result lost message if the game is the first to win 3 games.
+  * As player of the game, I want to see the the letters I guessed.
+
+    * Player can see the letters already guessed
+
+  * As a player of the game, I want to enter the complete word as well as a letter.
+
+    * Player can enter the completed word or just a single letter.
+
+  * As a player of the game, I do not want to be penalized if I enter a letter or word that I previously chose.
+
+    * Player is not penalized for entering the same letters or words more than once
+
+  *  As a player of the game, I want to know how many attempts I have left. 
+
+    * Player is presented with a message showing available attempts after entering a validated word or letter not previously used
+
+  *  As a player of the game, I want to know when the game is complete.
+
+    * Player is presented with a Game Won or Game Lost message when game is completed
+
+  * As a player of the game, I want to be able to continue or quit when the game is complete.
+
+    * Player is presented with an option to continue or quite on the Game Won or Game Lost message
+
 
 * ### Validator Testing
-  * JavaScript
-    * No errors were found when passing through the official [JSHint validator](https://jshint.com/)
-
-  * HTML
-    * No errors were returned when passing through the official [W3C validator](https://validator.w3.org/)
-
-  * CSS
-     * No errors were found when passing through the official [Jigsaw validator](https://jigsaw.w3.org/css-validator/)
-
-  * Accessibility
-     * Score 100% using Lighthouse in Chrome DevTools
-
-       ![Accessibility](assets/images/accessibility.PNG)
+  * Python
+    * No errors were found when passing through the [PEP8 Online validator](http://pep8online.com//)
 
   * Mobile Responsiveness
-     * Minimum screen width for responsive design was done at 320px.
-     * Mobile responsiveness was limited to the "toggle device" feature in Chrome Developer Tools due to lack of access to more physical devices.
-     * Responsive design testing on physical devices were done on an iPhone 8 and iPad (6th Generation).
+     * Application was not developed for mobile
 
   * Desktop Browser Compatibility
-     * Site was tested in the following browsers:
-      * Microsoft Edge Version 94.0.992.31 (Official build)  (64-bit)
+     * Site was tested in the following browser:
       * Chrome Version 94.0.4606.61 (Official Build) (64-bit)
 
 ## 5. Bug Fixes
 
 | Bug | Solution |
 | --------------- | --------------- |
-| 1. When a game is a draw the reason is not displayed | Value for resultReason was missing in the calculateResult function |
-| 2. Game score displays 0 but after winning the score increments to last won value | Updated the resetGameScore function to set the gameScoreWon and gameScoreLost value to 0 |
-| 3. Result message not displaying the selected hand options  | Add data-type to icon since the attribute did not exist and therefore when user clicked the icon it would set the value as undefined |
-| 4. JSHint gave warning "Functions declared within loops referencing an outer scoped variable may lead to confusing semantics" | Removed function from btn.eventListener when Play is clicked and created a separate event listener specifically for the Play button |
-| 5. Close button on rules not displaying on smaller screens | Set the relative position for the rules close button |
-| 6. HTML validator identified frameless border as being deprecated | Removed frameless border from iframe tag and set property in CSS instead |
-| 7. Aria-label misuse warning from HTML validator | Removed aria-label from icon and set on game control button instead |
-| 8. Video continues playing after display for video-wrapper is set to none | Created a function that resets iframe.src |
+| 1. ValueError message not triggered when the word guessed is longer than the hidden word | Value for resultReason was missing in the calculateResult function |
+| 2. Words already guessed increases the player attempts | Updated the resetGameScore function to set the gameScoreWon and gameScoreLost value to 0 |
+| 3. When entering lowercase letters they do not match a capitalized word | Add data-type to icon since the attribute did not exist and therefore when user clicked the icon it would set the value as undefined |
+| 4. ValueError raised when username matches the assumed code condition | Removed function from btn.eventListener when Play is clicked and created a separate event listener specifically for the Play button |
+| 5. Category options not working after moving Google access information to a separate file | Set the relative position for the rules close button |
+| 6. Letters and words guessed are available are displayed when player continues a new game | Removed frameless border from iframe tag and set property in CSS instead |
 
 ## 6. Deployment
 
-The site was deployed to GitHub pages. The steps to deploy are as follows: 
-  * In the GitHub repository, navigate to the Settings tab.
-  * On the left menu list, select Pages.
-  * In the source section drop-down menu, select the Main Branch and click Save.
-  * Upon successful save, the Github Pages section will display a message to indicate that the site is ready to be published at https://ashraafa.github.io/computerised-hand-game/.
+The site was deployed to Heroku. The steps to deploy are as follows: 
+  * Fork or clone this repository.
+  * Create a new app in [Heroku](https://dashboard.heroku.com/apps).
+  * Select "New" and "Create new app".
+  * Name the new app and click "Create new app".
+  * In "Settings" select "BuildPack" and select Python and Node.js. (Python must be at the top of the list).
+  * Whilst still in "Settings", click "Reveal Config Vars" and input the folloing. KEY: PORT, VALUE: 8000. Nothing else is needed here as this project does not have any sensitive files.
+  * Click on "Deploy" and select your deploy method and repository.
+  * Click "Connect" on selected repository. 
+  * Either choose "Enable Automatic Deploys" or "Deploy Branch" in the manual deploy section. 
+  * Heroku will now deploy the site.
 
 ## 7. Credits
 
