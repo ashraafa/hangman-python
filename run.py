@@ -226,6 +226,8 @@ def play_hangman(player_name, play_game, category):
     game_word = get_random_word(category)
     display_word = "_" * len(game_word)
 
+    print(f"{helpers.Colors.MESSAGE}{helpers.Colors.BOLD}Good Luck "
+          f"{player_name}!")
     print(helpers.Colors.ASCII + helpers.display_hangman(attempts) +
           helpers.Colors.RESET)
     print(f"Hidden Word: {helpers.Colors.OUTPUT} "+" "
