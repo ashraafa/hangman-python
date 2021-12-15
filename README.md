@@ -3,8 +3,7 @@
 ## Table of Contents
 
 - [1. Introduction](#1-introduction)
-  * [History](#history)
-  * [Target Audience](#target-audience)
+  * [Overview](#overview)
 - [2. User Experience and Design](#2-user-experience-and-design)
   * [User Stories](#user-stories)
   * [Design](#design)
@@ -47,19 +46,19 @@ The live site can be accessed [here](https://ashraaf-hangman.herokuapp.com/)
   * Game Workflow
     * The game workflow was designed using [Lucid Charts](https://www.lucidchart.com/).
 
-    ![Flowchart](assets/images/google-workbook.png)
+    ![Flowchart](assets/images/googleworkbook.png)
 
   * Google Sheets
     * The game catogories are stored in a google sheets workbook. Each category is stored a separate worksheet and accessed via the Google API
 
     *PS: I intentionally hid the rows in the image below as it contains the Hangman words*
 
-    ![Google Workbook](assets/images/google-workbook.PNG)
+    ![Google Workbook](assets/images/google_workbook.PNG)
  
   * Text to ASCII
     * ASCII art was defined for the welcome screen and when the player wins the game. The tool used to generate the ASCII art can be found [here](http://patorjk.com/)
     
-    ![ASCII Generator](assets/images/ascii-generator.png)
+    ![ASCII Generator](assets/images/ascii_generator.png)
 
   * Text Colors & Formatting
     * Colors were defined as constants and labelled for their purpose
@@ -76,7 +75,7 @@ The live site can be accessed [here](https://ashraaf-hangman.herokuapp.com/)
       * UNDERLINE = underlines the text
       * BOLD = font weight is increased
     
-    ![Color Class](assets/images/color-constants.png)
+    ![Color Class](assets/images/color_constants.png)
 
 
 ## 3. Features
@@ -91,50 +90,50 @@ This section introduces the features that have been implemented to satisfy the u
 
 * Enter Username
   * The game requires the user to enter a username in order to personalize the messages being displayed
-    *  The username must consist of alpha characters only. Value errors are raised if the player enters letters or symbols.
+    *  The username must consist of alpha characters only. ValueError is raised if the player enters letters or symbols.
 
-    ![Value Error Alpha](assets/images/game-navigation.PNG)
+    ![ValueError Alpha](assets/images/user_value_error_num.PNG)
 
-    *  The username must not exceed 10 alpha characters. Value errors are raised if the player enters more than 10 characters.
+    *  The username must not exceed 10 alpha characters. ValueError is raised if the player enters more than 10 characters.
 
-    ![Value Error Max Letters](assets/images/game-navigation.PNG)
+    ![ValueError Max Letters](assets/images/user_value_error_char.png)
 
 * Display Categories
   * Upon successful validation of the username, the player is presented with a personalised message with text to confirm the next steps required by the player.
 
-    ![Game Category Message](assets/images/info-video.PNG)
+    ![Game Category Message](assets/images/category_message.png)
 
   * The player is provided with the number to enter once they have decided on their word category of choice.
 
-    ![Game Category Options](assets/images/info-video.PNG)
+    ![Game Category Options](assets/images/category_options.PNG)
 
   * If  the player enters any option other than the numbers available. They are presented with an error message in red text.
 
-    ![Game Category Error Message](assets/images/info-video.PNG)
+    ![Game Category Error Message](assets/images/category_error.png)
 
 * Main Game Screen
   * The player is presented with a personalized message.
 
-    ![Good Luck Message](assets/images/player-controls.PNG)
+    ![Good Luck Message](assets/images/good_luck_message.png)
 
   * The initial state of the hangman image is displayed to the player along with the placeholders for hidden word, words guessed and letters guessed.
     
-    ![Play Hangman Initial Page](assets/images/player-controls.PNG)
+    ![Play Hangman Play Screen](assets/images/hangman_play_screen.png)
 
   * The player is prompted to enter a letter or complete word.
     
-    ![Play Hangman Input](assets/images/player-controls.PNG)
+    ![Play Hangman Input](assets/images/hangman_input.png)
 
-  * If the player enters any value other than a single letter or word that matches the length of hidden word. They are presented with Value error message in red text.
+  * If the player enters any value other than a single letter or word that matches the length of hidden word. They are presented with ValueError message in red text.
 
-    ![Game Category Error Message](assets/images/info-video.PNG)
+    ![Play Hangman Error Message](assets/images/hangman_error.png)
 
   * If the player enters a letter not in the hidden word, the following is executed:
     * The message at the top of the terminal is updated with confirmation that available attempts has decreased.
     * The hangman image is updated.
     * The letter guessed is added to the Letters Guessed placeholder.
     
-    ![Play Hangman Incorrect Letter Guessed](assets/images/player-controls.PNG)
+    ![Play Hangman Incorrect Letter Guessed](assets/images/hangman_wrong_letter.png)
 
   * If the player enters a letter that is in the hidden word, the following is executed:
     * The message at the top of the terminal is updated with confirmation and a reminder of the number of attempts used so far.
@@ -142,34 +141,34 @@ This section introduces the features that have been implemented to satisfy the u
     * The hidden word reveals the location of the letter in the word.
     * The letter guessed is added to the Letters Guessed placeholder.
     
-    ![Play Hangman Correct Letter Guessed](assets/images/player-controls.PNG)
+    ![Play Hangman Correct Letter Guessed](assets/images/hangman_correct_letter.png)
 
     * If the player enters a letter that was already guessed, the following is executed:
     * The player is presented with an error message in red text and neither the attempts or hangman picture is altered as the player is not penalized.
     
-    ![Play Hangman Already Guessed Letter](assets/images/player-controls.PNG)
+    ![Play Hangman Already Guessed Letter](assets/images/hangman_already_guessed_letter.png)
 
     * If the player enters a word that is not the hidden word, the following is executed:
     * The message at the top of the terminal is updated with confirmation that available attempts has decreased.
     * The hangman image is updated.
     * The word guessed is added to the Words Guessed placeholder.
     
-    ![Play Hangman Incorrect Word Guessed](assets/images/player-controls.PNG)
+    ![Play Hangman Incorrect Word Guessed](assets/images/hangman_wrong_word.png)
 
     * If the player enters a word that was already guessed, the following is executed:
     * The player is presented with an error message in red text and neither the attempts or hangman picture is altered as the player is not penalized.
     
-    ![Play Hangman Already Guessed Word](assets/images/player-controls.PNG)
+    ![Play Hangman Already Guessed Word](assets/images/hangman_already_guessed_word.png)
  
 * Game Won Screen
    * If the player enters a word that is the hidden word. The game won screen is displayed and user is presented with the option to play again or return to main screen
     
-    ![Play Hangman Game Won](assets/images/player-controls.PNG)  
+     ![Play Hangman Game Won](assets/images/hangman_game_won.png)  
 
 * Game Lost Screen
    * If the player depletes their available attempts with letters or words used. The game lost screen is displayed and user is presented with the option to play again or return to main screen
     
-    ![Play Hangman Game Won](assets/images/player-controls.PNG)  
+     ![Play Hangman Game Won](assets/images/hangman_game_lost.png)  
 
 ## 4. Testing
 
@@ -226,7 +225,7 @@ This section introduces the features that have been implemented to satisfy the u
 
   * Mobile Responsiveness
      * Application was not developed for mobile
-
+     
   * Desktop Browser Compatibility
      * Site was tested in the following browser:
       * Chrome Version 94.0.4606.61 (Official Build) (64-bit)
