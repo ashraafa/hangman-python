@@ -1,16 +1,16 @@
 import os
 
 
-class COLORS:
+class Colors:
     # Class with color variables defined for applying to text in the console
     RESET = '\33[0m'
     UNDERLINE = '\033[04m'
     BOLD = '\033[01m'
-    RED = '\033[31m'
-    BLUE = '\033[34m'
-    GREEN = '\033[32m'
-    YELLOW = '\033[93m'
-    CYAN = '\033[36m'
+    ERROR = '\033[31m'
+    MESSAGE = '\033[34m'
+    INPUT = '\033[32m'
+    ASCII = '\033[93m'
+    OUTPUT = '\033[36m'
 
 
 def clear_terminal():
@@ -90,5 +90,4 @@ def display_hangman(attempts):
         -
         """
     ]
-
     return hangman_pic[attempts]
