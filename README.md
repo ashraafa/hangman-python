@@ -209,11 +209,11 @@ This section introduces the features that have been implemented to satisfy user 
 
   *  As a player of the game, I want to know how many attempts I have left. 
 
-    * Player is presented with a message showing available attempts after entering a validated word or letter not previously used.
+      * Player is presented with a message showing available attempts after entering a validated word or letter not previously used.
 
   *  As a player of the game, I want to know when the game is complete.
 
-    * Player is presented with a Game Won or Game Lost message when game is completed.
+     * Player is presented with a Game Won or Game Lost message when game is completed.
 
   * As a player of the game, I want to be able to continue or quit when the game is complete.
 
