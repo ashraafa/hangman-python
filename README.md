@@ -103,7 +103,7 @@ This section introduces the features that have been implemented to satisfy user 
 
   * The player is provided with the number to enter once they have decided on their word category of choice.
 
-    ![Game Category Options](assets/images/category_options.PNG)
+    ![Game Category Options](assets/images/category_options.png)
 
   * If the player enters any option other than the numbers available, they are presented with an error message in red text.
 
@@ -143,7 +143,7 @@ This section introduces the features that have been implemented to satisfy user 
 
     * If the player enters a letter that was already guessed, the following is executed:
       * The player is presented with an error message in red text.
-      * The attempts value or hangman picture is not altered as the player is not penalized.
+      * The attempts value and hangman picture is not updated as the player is not penalized.
     
       ![Play Hangman Already Guessed Letter](assets/images/hangman_already_guessed_letter.png)
 
@@ -156,7 +156,7 @@ This section introduces the features that have been implemented to satisfy user 
 
     * If the player enters a word that was already guessed, the following is executed:
       * The player is presented with an error message in red text.
-      * The attempts value or hangman picture is not altered as the player is not penalized.
+      * The attempts value and hangman picture is not updated as the player is not penalized.
     
       ![Play Hangman Already Guessed Word](assets/images/hangman_already_guessed_word.png)
  
