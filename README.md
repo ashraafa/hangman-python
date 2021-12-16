@@ -228,7 +228,7 @@ This section introduces the features that have been implemented to satisfy user 
      
   * Desktop Browser Compatibility
      * Site was tested in the following browser:
-      * Chrome Version 94.0.4606.61 (Official Build) (64-bit)
+      * Chrome Version 96.0.4664.110 (Official Build) (64-bit)
 
 ## 5. Bug Fixes
 
