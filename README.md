@@ -12,8 +12,9 @@
   * [Use Case Testing](#use-case-testing)
   * [Validator Testing](#validator-testing)
 - [5. Bug Fixes](#5-bug-fixes)
-- [6. Deployment](#6-deployment)
-- [7. Credits](#7-credits)
+- [6. Libraries](#6-libraries)
+- [7. Deployment](#7-deployment)
+- [8. Credits](#8-credits)
 
 ## 1. Introduction
 
@@ -241,7 +242,18 @@ This section introduces the features that have been implemented to satisfy user 
 | 5. Category options not working after moving Google access information to a separate file | Updated variable references and updated api.py to import "Credentials" and "gspread" |
 | 6. Letters and words guessed are displayed when player continues a new game | Added clear() function in play_hangman code block where game_lost and game_won functions are executed |
 
-## 6. Deployment
+## 6. Libraries
+The following libraries were included in order to execute functions in the code.
+
+  * gspread
+    * a Python API library required to get worksheets and rows from the Google spreadsheet
+  * google.oauth2.service_account
+    * a library used to import the Credentials module for authenticating the service account that will query the Google spreadsheet
+  * random
+    * the random module was required to create code that would select a random item within the list retrieved from the Google worksheet
+
+
+## 7. Deployment
 
 The site was deployed to Heroku. The steps to deploy are as follows: 
   * Create an account [Heroku](https://dashboard.heroku.com/apps) or sign in if you already have an account.
@@ -263,7 +275,7 @@ The site was deployed to Heroku. The steps to deploy are as follows:
   * If you selected **Manual Deploy** click **Deploy Branch**
   * Once deployment is complete you will see a **View** button that will launch your deployed Heroku App.
 
-## 7. Credits
+## 8. Credits
 
 The following section identifies websites and individuals that supported me whilst building the game site.
  
