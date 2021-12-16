@@ -46,17 +46,15 @@ The live site can be accessed [here](https://ashraaf-hangman.herokuapp.com/)
   * Game Workflow
     * The game workflow was designed using [Lucid Charts](https://www.lucidchart.com/).
 
-    ![Flowchart](assets/images/googleworkbook.png)
+    ![Flowchart](assets/images/flowchart_hangman.png)
 
   * Google Sheets
     * The game catogories are stored in a google sheets workbook. Each category is stored a separate worksheet and accessed via the Google API
 
-    *PS: I intentionally hid the rows in the image below as it contains the Hangman words*
-
     ![Google Workbook](assets/images/google_workbook.PNG)
  
   * Text to ASCII
-    * ASCII art was defined for the welcome screen and when the player wins the game. The tool used to generate the ASCII art can be found [here](http://patorjk.com/)
+    * ASCII art was defined for the welcome screen and the player won screen. The tool used to generate the ASCII art can be found [here](http://patorjk.com/)
     
     ![ASCII Generator](assets/images/ascii_generator.png)
 
@@ -79,7 +77,7 @@ The live site can be accessed [here](https://ashraaf-hangman.herokuapp.com/)
 
 
 ## 3. Features
-This section introduces the features that have been implemented to satisfy the user stories that have been defined.
+This section introduces the features that have been implemented to satisfy user stories that have been defined.
 
 * Welcome Screen
   * The game name is displayed using the text to ASCII generator and a yellow color to make it stand out.
@@ -244,16 +242,24 @@ This section introduces the features that have been implemented to satisfy the u
 ## 6. Deployment
 
 The site was deployed to Heroku. The steps to deploy are as follows: 
-  * Fork or clone this repository.
-  * Create a new app in [Heroku](https://dashboard.heroku.com/apps).
-  * Select "New" and "Create new app".
-  * Name the new app and click "Create new app".
-  * In "Settings" select "BuildPack" and select Python and Node.js. (Python must be at the top of the list).
-  * Whilst still in "Settings", click "Reveal Config Vars" and input the folloing. KEY: PORT, VALUE: 8000. Nothing else is needed here as this project does not have any sensitive files.
-  * Click on "Deploy" and select your deploy method and repository.
-  * Click "Connect" on selected repository. 
-  * Either choose "Enable Automatic Deploys" or "Deploy Branch" in the manual deploy section. 
-  * Heroku will now deploy the site.
+  * Create an account  [Heroku](https://dashboard.heroku.com/apps) or sign in if you already have an account.
+  * Click **New** and select **Create new app**.
+  * Enter a unique name for your App and click **Create app**.
+  * Click the **Settings** tab and select **Add buildPack** 
+  * Select **python** and click **Save Changes**.
+  * Click **Add buildPack** again and select **nodejs** then click **Save Changes**.
+    * *PS: Python should be listed first. You can drag and drop to change order.*
+  * In the **Settings** tab click **Reveal Config Vars** and input the following:
+     * KEY = PORT and  VALUE = 8000
+     * *If you have sensitive information that is not deployed to your repository then add the addtional Config Vars*
+     * KEY = your reference (uppercase) and VALUE = details of your sensitive data
+  * Click the **Deploy** tab and select your **Deployment method**. 
+  
+  *The next steps apply if you are using GitHub as your repository. If not using GitHub, follow the Heroku on screen instructions.*
+  * Click **Connect** for the repository you want to deploy to Heroku.
+  * You can choose **Enable Automatic Deploys** or **Manual Deploy**. 
+  * If you selected **Manual Deploy** click **Deploy Branch**
+  * Once deployment is complete you will see a **View** button that will launch your deployed Heroku App.
 
 ## 7. Credits
 
