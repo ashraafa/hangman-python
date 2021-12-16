@@ -275,6 +275,7 @@ The following section identifies websites and individuals that supported me whil
   * [Hangman Categories](https://www.chegg.com/homework-help/questions-and-answers/c-code-heres-floechart-list-words-caregories-posible-store-words-arrays-heres-flow-chart-n-q63270475)
   * [Hangman Hard Word List ](https://futureofworking.com/40-hardest-words-to-guess-in-hangman/)
   * [Terminal Text Colors](https://www.geeksforgeeks.org/print-colors-python-terminal/)
+  * [Python Enumerate Function](https://www.geeksforgeeks.org/enumerate-in-python/)
   * [Clear Console Solution](https://www.delftstack.com/howto/python/python-clear-console/)
   * [Creating List from Nested List](https://blog.finxter.com/python-list-of-lists/#Create_a_List_of_Lists_in_Python)
   * [Lucidchart for Flowcharts](https://www.lucidchart.com/)
